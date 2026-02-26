@@ -1,0 +1,13 @@
+# Environnement virtuel
+venv/
+.venv/
+
+# Variables d'environnement (TRÈS IMPORTANT)
+.env
+
+# Données temporaires et résultats
+data/invoices/*
+!data/invoices/.gitkeep
+*.xlsx
+__pycache__/
+.DS_Store
