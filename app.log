@@ -1,0 +1,2584 @@
+2026-03-03 23:41:42,172 - INFO - [MainProcess] - Le fichier de log doit se trouver ici : c:\Agent_IA\app.log
+2026-03-03 23:47:18,364 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-03 23:47:18,543 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-03 23:47:18,545 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-03 23:47:18,548 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '5083794b-175b-11f1-9207-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-03 23:47:19,916 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0a3e46c4-dc07-4c80-8edd-b51a5169d999?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '94'
+    'apim-request-id': '0a3e46c4-dc07-4c80-8edd-b51a5169d999'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Tue, 03 Mar 2026 23:47:19 GMT'
+2026-03-03 23:47:19,919 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0a3e46c4-dc07-4c80-8edd-b51a5169d999?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '5083794b-175b-11f1-9207-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-03 23:47:20,130 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '53'
+    'apim-request-id': '4998d0b6-ac93-4338-a037-f9c9f9cfca39'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Tue, 03 Mar 2026 23:47:19 GMT'
+2026-03-03 23:47:25,135 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0a3e46c4-dc07-4c80-8edd-b51a5169d999?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '5083794b-175b-11f1-9207-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-03 23:47:25,450 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '64'
+    'apim-request-id': '3cccae69-7ff5-4396-af9b-db7ec8bc165b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Tue, 03 Mar 2026 23:47:24 GMT'
+2026-03-03 23:47:25,530 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-03 23:47:25,530 - INFO - [MainProcess] - Résultat reçu de l'OCR : nomade
+STUDIO CRÉATIF
+2026-03-04 12:35:26,047 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 12:35:26,287 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 12:35:26,287 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 12:35:26,318 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '9ef77374-17c6-11f1-a6cb-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 12:35:28,271 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/74116909-f29a-42a7-80b2-d15aa53a5cbe?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '73'
+    'apim-request-id': '74116909-f29a-42a7-80b2-d15aa53a5cbe'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:35:29 GMT'
+2026-03-04 12:35:28,273 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/74116909-f29a-42a7-80b2-d15aa53a5cbe?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '9ef77374-17c6-11f1-a6cb-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:35:28,391 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '48'
+    'apim-request-id': '3de15640-c546-42cc-9882-6f8aa13bd275'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:35:29 GMT'
+2026-03-04 12:35:33,404 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/74116909-f29a-42a7-80b2-d15aa53a5cbe?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '9ef77374-17c6-11f1-a6cb-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:35:33,650 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '87'
+    'apim-request-id': 'b06d65f4-600e-4fe1-bb27-391e0a49516a'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:35:34 GMT'
+2026-03-04 12:35:33,714 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-04 12:35:33,715 - INFO - [MainProcess] - Résultat reçu de l'OCR : nomade
+STUDIO CRÉATIF
+2026-03-04 12:38:46,311 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 12:38:46,613 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 12:38:46,614 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 12:38:46,618 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '165ad4cb-17c7-11f1-a244-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 12:38:49,432 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/aa2ca3cd-48fd-462c-a4e8-f3836ceb11de?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '90'
+    'apim-request-id': 'aa2ca3cd-48fd-462c-a4e8-f3836ceb11de'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:38:50 GMT'
+2026-03-04 12:38:49,432 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/aa2ca3cd-48fd-462c-a4e8-f3836ceb11de?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '165ad4cb-17c7-11f1-a244-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:38:49,553 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '36'
+    'apim-request-id': '4d2336b9-7b8d-49f7-a51b-35853a0cd403'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:38:50 GMT'
+2026-03-04 12:38:54,555 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/aa2ca3cd-48fd-462c-a4e8-f3836ceb11de?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '165ad4cb-17c7-11f1-a244-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:38:54,792 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '65'
+    'apim-request-id': 'a41b1fa1-0e35-465f-be8b-af24143abb26'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:38:55 GMT'
+2026-03-04 12:38:54,884 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-04 12:39:09,070 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 12:39:09,234 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 12:39:09,234 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 12:39:09,248 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '23d5d81a-17c7-11f1-adb1-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 12:39:10,978 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/5bfede6c-42e9-4ebf-b614-0e34e367f1a8?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '75'
+    'apim-request-id': '5bfede6c-42e9-4ebf-b614-0e34e367f1a8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:39:12 GMT'
+2026-03-04 12:39:10,993 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/5bfede6c-42e9-4ebf-b614-0e34e367f1a8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '23d5d81a-17c7-11f1-adb1-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:39:11,146 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '49'
+    'apim-request-id': '26a212cf-7c34-4409-82e7-7f2a8d4d2953'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:39:12 GMT'
+2026-03-04 12:39:16,148 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/5bfede6c-42e9-4ebf-b614-0e34e367f1a8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '23d5d81a-17c7-11f1-adb1-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:39:16,397 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '89'
+    'apim-request-id': '88cf0684-f239-4a2b-a800-a7d3735562b9'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:39:17 GMT'
+2026-03-04 12:39:16,499 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-04 12:40:16,025 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 12:40:16,205 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 12:40:16,205 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 12:40:16,210 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '4bc0d745-17c7-11f1-b9e1-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 12:40:17,826 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/a19d75dd-00a6-4582-a2d2-dd8cb7ba6af6?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '86'
+    'apim-request-id': 'a19d75dd-00a6-4582-a2d2-dd8cb7ba6af6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:40:18 GMT'
+2026-03-04 12:40:17,828 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/a19d75dd-00a6-4582-a2d2-dd8cb7ba6af6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '4bc0d745-17c7-11f1-b9e1-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:40:17,931 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '27'
+    'apim-request-id': '4ccaca26-89b8-4fab-8f7f-11a921604cea'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:40:18 GMT'
+2026-03-04 12:40:22,942 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/a19d75dd-00a6-4582-a2d2-dd8cb7ba6af6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '4bc0d745-17c7-11f1-b9e1-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 12:40:23,186 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '78'
+    'apim-request-id': '31226929-b74f-4838-992c-f41b96b09edd'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 12:40:23 GMT'
+2026-03-04 12:40:23,326 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-04 12:40:23,330 - INFO - [MainProcess] - Traitement terminé avec succès.
+2026-03-04 12:45:51,795 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 12:45:51,995 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 12:45:51,995 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 12:46:00,213 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-04 12:46:00,216 - INFO - [MainProcess] - Traitement terminé avec succès.
+2026-03-04 12:51:15,747 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 12:51:16,005 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 12:51:16,006 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 12:51:23,614 - INFO - [src.ocr_agent] - extraction ended for {'vendor_name': 'nomade\nSTUDIO CRÉATIF', 'invoice_date': '30 / 10 / 2035', 'due_date': '30 / 11/ 2035', 'invoice_id': '123-456-7890', 'subtotal': 5200.0, 'total_tax': 1040.0, 'total_amount': 6240.0, 'currency': 6240.0, 'raw_content': 'FACTURE\nnomade\nSTUDIO CRÉATIF\nDATE : 30 / 10 / 2035\nÉCHÉANCE : 30 / 11/ 2035\nFACTURE Nº : 123-456-7890\nÉMETTEUR :\nDESTINATAIRE :\n123-456-7890\nM.NOA ANDRIEUX\nhello@reallygreatsite.com\nhello@reallygreatsite.com\n123 Anywhere St,\n123 Anywhere St,\nAny City ST 12345\nAny City ST 12345\nDescription :\nPrix Unitaire :\nQuantité :\nTotal :\nIdentité visuelle\n2500,00€\n1\n2500,00€\nRapport détaillé\n1500,00€\n1\n1500,00€\nFormation des équipes\n1200,00€\n1\n1200,00€\n-\nI\n-\nTOTAL HT :\n5200,00€\nTVA 20% :\nRÈGLEMENT :\n1040,00€\nREMISE :\nPar virement bancaire :\nBanque : Rimberio\nTOTAL TTC :\n6240,00€\nCompte : 123-456-7890\nEn cas de retard de paiement, une indemnité de 10% par\njour de retard ainsi que des frais de recouvrement de 40\neuros seront exigibles.\nConditions générales de vente consultables sur le site :\nwww.reallygreatsite.com :unselected:'}
+2026-03-04 13:25:11,573 - INFO - [MainProcess] - --- DÉBUT DU TRAITEMENT ---
+2026-03-04 13:25:11,771 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 13:25:11,771 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 13:25:11,775 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '9270215a-17cd-11f1-96dc-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 13:25:13,721 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/265da3a4-e689-4076-b30e-dfbcc6e4d8b9?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '77'
+    'apim-request-id': '265da3a4-e689-4076-b30e-dfbcc6e4d8b9'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:25:14 GMT'
+2026-03-04 13:25:13,723 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/265da3a4-e689-4076-b30e-dfbcc6e4d8b9?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '9270215a-17cd-11f1-96dc-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:25:13,857 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '45'
+    'apim-request-id': 'ffa061fe-c847-4f4a-9ba6-bc3138b1ab2a'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:25:14 GMT'
+2026-03-04 13:25:18,860 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/265da3a4-e689-4076-b30e-dfbcc6e4d8b9?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '9270215a-17cd-11f1-96dc-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:25:19,105 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '66'
+    'apim-request-id': 'dbde84c3-ceb0-4b12-8485-e737c84be10b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:25:19 GMT'
+2026-03-04 13:29:00,297 - INFO - [MainProcess] - --- DÉMARRAGE DU PIPELINE ---
+2026-03-04 13:29:00,558 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 13:29:00,560 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 13:29:00,560 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '1acdec1f-17ce-11f1-8aeb-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 13:29:02,224 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b66fc88c-eb0c-4b01-a70b-0d5edd91e476?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '79'
+    'apim-request-id': 'b66fc88c-eb0c-4b01-a70b-0d5edd91e476'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:29:03 GMT'
+2026-03-04 13:29:02,224 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b66fc88c-eb0c-4b01-a70b-0d5edd91e476?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '1acdec1f-17ce-11f1-8aeb-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:29:02,339 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '34'
+    'apim-request-id': '73a04d93-c7ba-47df-9672-c6d3d391fb69'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:29:03 GMT'
+2026-03-04 13:29:07,340 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b66fc88c-eb0c-4b01-a70b-0d5edd91e476?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '1acdec1f-17ce-11f1-8aeb-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:29:07,603 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '102'
+    'apim-request-id': 'ce6a9ed4-f5f5-4e07-800c-0f717edc9c7c'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:29:08 GMT'
+2026-03-04 13:49:33,256 - INFO - OCREngine initialized successfully
+2026-03-04 13:49:33,256 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 13:49:33,261 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'f98ccf9d-17d0-11f1-bbda-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 13:49:36,757 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/42d8ac6c-b8c7-4453-a69c-7e76fcf94af9?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '100'
+    'apim-request-id': '42d8ac6c-b8c7-4453-a69c-7e76fcf94af9'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:49:37 GMT'
+2026-03-04 13:49:36,757 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/42d8ac6c-b8c7-4453-a69c-7e76fcf94af9?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'f98ccf9d-17d0-11f1-bbda-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:49:36,893 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '41'
+    'apim-request-id': '2456316d-c7ee-46a8-968c-d10b4e4a7af7'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:49:37 GMT'
+2026-03-04 13:49:41,895 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/42d8ac6c-b8c7-4453-a69c-7e76fcf94af9?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'f98ccf9d-17d0-11f1-bbda-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:49:42,159 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '81'
+    'apim-request-id': '1b6ae6dd-ba96-4b01-8eec-47ad10d22160'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:49:42 GMT'
+2026-03-04 13:50:53,452 - INFO - OCREngine initialized successfully
+2026-03-04 13:50:53,452 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 13:50:53,457 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '29595cad-17d1-11f1-a325-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 13:50:55,149 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/dfa55007-0978-4ce2-b50e-b8c62c637ee8?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '81'
+    'apim-request-id': 'dfa55007-0978-4ce2-b50e-b8c62c637ee8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:50:55 GMT'
+2026-03-04 13:50:55,149 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/dfa55007-0978-4ce2-b50e-b8c62c637ee8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '29595cad-17d1-11f1-a325-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:50:55,272 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '40'
+    'apim-request-id': '7b80fdc4-b78a-4fce-bd13-0247d99011cf'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:50:55 GMT'
+2026-03-04 13:51:00,273 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/dfa55007-0978-4ce2-b50e-b8c62c637ee8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '29595cad-17d1-11f1-a325-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:51:00,765 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '77'
+    'apim-request-id': '8420f0a0-b386-4088-b945-d29f47a5a8f1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:51:01 GMT'
+2026-03-04 13:51:00,849 - INFO - test successfully completed
+2026-03-04 13:51:15,026 - INFO - [MainProcess] - --- DÉMARRAGE DU PIPELINE ---
+2026-03-04 13:51:15,521 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 13:51:15,521 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 13:51:15,521 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '3680ce4d-17d1-11f1-b1d5-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 13:51:17,236 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/8d0400a8-c0f3-4e8c-aaf4-09f1eaa5e0a5?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '8d0400a8-c0f3-4e8c-aaf4-09f1eaa5e0a5'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:51:18 GMT'
+2026-03-04 13:51:17,236 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/8d0400a8-c0f3-4e8c-aaf4-09f1eaa5e0a5?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '3680ce4d-17d1-11f1-b1d5-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:51:17,347 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '35'
+    'apim-request-id': '6d09f58f-da3a-49ac-ac58-290bb566f750'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:51:18 GMT'
+2026-03-04 13:51:22,360 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/8d0400a8-c0f3-4e8c-aaf4-09f1eaa5e0a5?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '3680ce4d-17d1-11f1-b1d5-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 13:51:22,616 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '2724a99b-07cc-4822-8073-aa8298b9dfc1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 13:51:23 GMT'
+2026-03-04 14:00:44,123 - INFO - OCREngine initialized successfully
+2026-03-04 14:00:44,123 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:00:44,135 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '896bd502-17d2-11f1-a6fe-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 14:00:46,839 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/17cb1817-a3c8-4ed7-814b-9bbb7bb4af1c?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '91'
+    'apim-request-id': '17cb1817-a3c8-4ed7-814b-9bbb7bb4af1c'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 14:00:47 GMT'
+2026-03-04 14:00:46,839 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/17cb1817-a3c8-4ed7-814b-9bbb7bb4af1c?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '896bd502-17d2-11f1-a6fe-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 14:00:46,973 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '42'
+    'apim-request-id': 'cd05688b-b5b1-432d-84d8-91fe268d34f8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 14:00:47 GMT'
+2026-03-04 14:00:51,976 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/17cb1817-a3c8-4ed7-814b-9bbb7bb4af1c?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '896bd502-17d2-11f1-a6fe-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 14:00:52,266 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '786827e9-dcdb-4390-904c-3da70131455a'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 14:00:52 GMT'
+2026-03-04 14:00:52,348 - INFO - test successfully completed
+2026-03-04 14:01:01,577 - INFO - [MainProcess] - --- DÉMARRAGE DU PIPELINE ---
+2026-03-04 14:01:01,733 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-04 14:01:01,733 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:01:01,735 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '93ea0134-17d2-11f1-ba9d-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 14:01:03,377 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b5742ae6-bc42-4f24-8e67-925ca1e55de8?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '82'
+    'apim-request-id': 'b5742ae6-bc42-4f24-8e67-925ca1e55de8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 14:01:04 GMT'
+2026-03-04 14:01:03,379 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b5742ae6-bc42-4f24-8e67-925ca1e55de8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '93ea0134-17d2-11f1-ba9d-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 14:01:03,489 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '38'
+    'apim-request-id': 'ebd6dccf-ea5c-4835-b341-fab7545ad367'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 14:01:04 GMT'
+2026-03-04 14:01:08,502 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b5742ae6-bc42-4f24-8e67-925ca1e55de8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '93ea0134-17d2-11f1-ba9d-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 14:01:08,752 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '95'
+    'apim-request-id': 'ee5c9047-b0aa-4da8-ba53-be009c4ab3f2'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 14:01:09 GMT'
+2026-03-04 14:45:27,437 - INFO - OCREngine initialized successfully
+2026-03-04 14:45:27,439 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:46:42,828 - INFO - OCREngine initialized successfully
+2026-03-04 14:46:42,828 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:49:25,080 - INFO - OCREngine initialized successfully
+2026-03-04 14:49:25,081 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:49:25,081 - ERROR - ERREUR CRITIQUE : Le fichier spécifié est introuvable.
+2026-03-04 14:50:48,022 - INFO - OCREngine initialized successfully
+2026-03-04 14:50:48,022 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:53:51,802 - INFO - OCREngine initialized successfully
+2026-03-04 14:53:51,802 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 14:53:51,802 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 14:53:51,802 - INFO - Fin de la session de test.
+2026-03-04 15:07:42,662 - INFO - OCREngine initialized successfully
+2026-03-04 15:07:42,662 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:07:42,662 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 15:07:42,663 - INFO - Fin de la session de test.
+2026-03-04 15:08:17,266 - INFO - OCREngine initialized successfully
+2026-03-04 15:08:17,266 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:08:17,266 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 15:08:17,266 - INFO - Fin de la session de test.
+2026-03-04 15:08:27,703 - INFO - OCREngine initialized successfully
+2026-03-04 15:08:27,703 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:08:27,703 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 15:08:27,703 - INFO - Fin de la session de test.
+2026-03-04 15:08:39,440 - INFO - OCREngine initialized successfully
+2026-03-04 15:08:39,440 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:08:39,440 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 15:08:39,442 - INFO - Fin de la session de test.
+2026-03-04 15:09:25,423 - INFO - OCREngine initialized successfully
+2026-03-04 15:09:25,424 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:09:25,424 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 15:09:25,424 - INFO - Fin de la session de test.
+2026-03-04 15:09:41,922 - INFO - OCREngine initialized successfully
+2026-03-04 15:09:41,922 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:09:41,922 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-04 15:09:41,922 - INFO - Fin de la session de test.
+2026-03-04 15:09:59,950 - INFO - OCREngine initialized successfully
+2026-03-04 15:09:59,951 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:09:59,953 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '367bf157-17dc-11f1-86b0-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 15:10:01,306 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/15d862e9-c787-4a86-8838-3c0222bbaef6?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '103'
+    'apim-request-id': '15d862e9-c787-4a86-8838-3c0222bbaef6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:10:02 GMT'
+2026-03-04 15:10:01,308 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/15d862e9-c787-4a86-8838-3c0222bbaef6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '367bf157-17dc-11f1-86b0-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 15:10:01,501 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '34'
+    'apim-request-id': 'b818cf99-cc57-48c3-ae03-4e221ee5b6a2'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:10:02 GMT'
+2026-03-04 15:10:06,542 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/15d862e9-c787-4a86-8838-3c0222bbaef6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '367bf157-17dc-11f1-86b0-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 15:10:06,798 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '65'
+    'apim-request-id': '30846a7e-8379-4e84-8d9c-8e14d06ab995'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:10:07 GMT'
+2026-03-04 15:10:06,862 - INFO - Fin de la session de test.
+2026-03-04 15:10:48,844 - INFO - OCREngine initialized successfully
+2026-03-04 15:10:48,844 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:10:48,844 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '53a017d1-17dc-11f1-bbc4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 15:10:50,348 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/d107f0af-31a6-407c-8d0e-a505a9c00b0e?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '65'
+    'apim-request-id': 'd107f0af-31a6-407c-8d0e-a505a9c00b0e'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:10:50 GMT'
+2026-03-04 15:10:50,348 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/d107f0af-31a6-407c-8d0e-a505a9c00b0e?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '53a017d1-17dc-11f1-bbc4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 15:10:50,547 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '34'
+    'apim-request-id': 'a49774f3-9190-4527-a6e6-9623864dc65d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:10:50 GMT'
+2026-03-04 15:10:55,554 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/d107f0af-31a6-407c-8d0e-a505a9c00b0e?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '53a017d1-17dc-11f1-bbc4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 15:10:55,844 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '83'
+    'apim-request-id': 'f6882ba5-3259-4478-b8af-66c86c407048'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:10:56 GMT'
+2026-03-04 15:10:55,924 - INFO - 
+✅ EXTRACTION RÉUSSIE
+2026-03-04 15:10:55,924 - INFO - Fin de la session de test.
+2026-03-04 15:24:25,388 - INFO - OCREngine initialized successfully
+2026-03-04 15:24:25,393 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-04 15:24:25,397 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '3a53ee4c-17de-11f1-80ee-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-04 15:24:27,378 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/aac17a0f-67d4-472c-815b-c00a0c04d05d?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '74'
+    'apim-request-id': 'aac17a0f-67d4-472c-815b-c00a0c04d05d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:24:28 GMT'
+2026-03-04 15:24:27,381 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/aac17a0f-67d4-472c-815b-c00a0c04d05d?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '3a53ee4c-17de-11f1-80ee-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 15:24:27,595 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '43'
+    'apim-request-id': 'f5cb7c0f-7d78-45d0-bc12-adabc41dbfab'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:24:28 GMT'
+2026-03-04 15:24:32,598 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/aac17a0f-67d4-472c-815b-c00a0c04d05d?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '3a53ee4c-17de-11f1-80ee-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-04 15:24:32,911 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '67'
+    'apim-request-id': '5c573854-f71c-4a5e-8e0e-624640ea91ca'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Wed, 04 Mar 2026 15:24:33 GMT'
+2026-03-04 15:24:32,992 - INFO - 
+✅ EXTRACTION RÉUSSIE
+2026-03-04 15:24:32,992 - INFO - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0,
+  "currency": 6240.0
+}
+2026-03-04 15:24:32,992 - INFO - Fin de la session de test.
+2026-03-05 11:06:26,962 - INFO - OCREngine initialized successfully
+2026-03-05 11:06:26,970 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-05 11:06:26,981 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '5ae2eb74-1883-11f1-9387-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:06:28,560 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/7ef810ab-60b8-410b-9aa9-2d61d9afc636?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '215'
+    'apim-request-id': '7ef810ab-60b8-410b-9aa9-2d61d9afc636'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:06:28 GMT'
+2026-03-05 11:06:28,560 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/7ef810ab-60b8-410b-9aa9-2d61d9afc636?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '5ae2eb74-1883-11f1-9387-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:06:28,717 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '55'
+    'apim-request-id': '83ff5b36-a640-4c0c-86b4-558406db50fb'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:06:28 GMT'
+2026-03-05 11:06:33,720 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/7ef810ab-60b8-410b-9aa9-2d61d9afc636?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '5ae2eb74-1883-11f1-9387-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:06:33,987 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '85af1c15-4514-4133-bb03-79bce8598ef6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:06:33 GMT'
+2026-03-05 11:06:33,992 - INFO - Fin de la session de test.
+2026-03-05 11:08:51,554 - INFO - OCREngine initialized successfully
+2026-03-05 11:08:51,555 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-05 11:08:51,558 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'b10f5aae-1883-11f1-aaba-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:08:52,880 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/1fb50025-cb56-4cd3-8d23-fbafa71ad9df?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '97'
+    'apim-request-id': '1fb50025-cb56-4cd3-8d23-fbafa71ad9df'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:08:52 GMT'
+2026-03-05 11:08:52,890 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/1fb50025-cb56-4cd3-8d23-fbafa71ad9df?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'b10f5aae-1883-11f1-aaba-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:08:53,018 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '41'
+    'apim-request-id': 'db706071-1548-4d14-84c1-682c39a1be73'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:08:52 GMT'
+2026-03-05 11:08:58,019 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/1fb50025-cb56-4cd3-8d23-fbafa71ad9df?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'b10f5aae-1883-11f1-aaba-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:08:58,280 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '80'
+    'apim-request-id': '0872b843-6e7b-480d-9f71-a34eb85502b1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:08:57 GMT'
+2026-03-05 11:08:58,340 - INFO -  EXTRACTION RÉUSSIE
+2026-03-05 11:08:58,340 - INFO - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0,
+  "currency": 6240.0
+}
+2026-03-05 11:08:58,340 - INFO - Fin de la session de test.
+2026-03-05 11:15:40,062 - INFO - OCREngine initialized successfully
+2026-03-05 11:15:40,062 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-05 11:15:40,065 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'a48ccc38-1884-11f1-abbd-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:15:42,437 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2d88cc4c-c497-4424-9310-2244127f43e1?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '99'
+    'apim-request-id': '2d88cc4c-c497-4424-9310-2244127f43e1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:15:41 GMT'
+2026-03-05 11:15:42,439 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2d88cc4c-c497-4424-9310-2244127f43e1?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a48ccc38-1884-11f1-abbd-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:15:42,567 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '41'
+    'apim-request-id': 'cb592c79-ed54-46ab-b871-56276d04bfa8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:15:41 GMT'
+2026-03-05 11:15:47,568 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2d88cc4c-c497-4424-9310-2244127f43e1?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a48ccc38-1884-11f1-abbd-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:15:47,880 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '122'
+    'apim-request-id': '2bb5ee2c-202b-497b-b187-24d9c806c90b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:15:46 GMT'
+2026-03-05 11:15:47,944 - INFO - Fin de la session de test.
+2026-03-05 11:16:10,690 - INFO - OCREngine initialized successfully
+2026-03-05 11:16:10,690 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-05 11:16:10,690 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-05 11:16:10,690 - ERROR - ERREUR : Le fichier image est introuvable. (Voir app.log)
+2026-03-05 11:16:10,690 - INFO - Fin de la session de test.
+2026-03-05 11:17:06,784 - INFO - OCREngine initialized successfully
+2026-03-05 11:17:06,784 - INFO - beginning of the analysis:data/pending/facture_test.jpg
+2026-03-05 11:17:06,784 - ERROR - DÉTAIL TECHNIQUE : Le chemin du fichier est incorrect ou le fichier n'existe pas.
+2026-03-05 11:17:06,784 - ERROR - ERREUR : Le fichier image est introuvable. (Voir app.log)
+2026-03-05 11:17:06,784 - INFO - Fin de la session de test.
+2026-03-05 11:20:32,559 - INFO - OCREngine initialized successfully
+2026-03-05 11:20:32,560 - INFO - beginning of the analysis:data/pending/facture_test2.jpeg
+2026-03-05 11:20:32,564 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '52e46c64-1885-11f1-b543-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:20:34,246 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/37f4f266-2d27-4a38-96e6-f7b367aee4a7?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '37f4f266-2d27-4a38-96e6-f7b367aee4a7'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:20:33 GMT'
+2026-03-05 11:20:34,251 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/37f4f266-2d27-4a38-96e6-f7b367aee4a7?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '52e46c64-1885-11f1-b543-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:20:34,393 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '41'
+    'apim-request-id': '68037b84-3582-43c1-866c-d33061d491c5'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:20:34 GMT'
+2026-03-05 11:20:39,394 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/37f4f266-2d27-4a38-96e6-f7b367aee4a7?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '52e46c64-1885-11f1-b543-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:20:39,663 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '76'
+    'apim-request-id': 'a69b7c53-6529-41c9-87a7-8378ba14207e'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:20:39 GMT'
+2026-03-05 11:20:39,729 - INFO - Fin de la session de test.
+2026-03-05 11:30:28,624 - INFO - OCREngine initialized successfully
+2026-03-05 11:30:28,625 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:30:28,636 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'b62d088d-1886-11f1-81b5-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:30:30,028 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2767821b-52c7-4982-90be-1b5ac74cf582?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '88'
+    'apim-request-id': '2767821b-52c7-4982-90be-1b5ac74cf582'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:29 GMT'
+2026-03-05 11:30:30,030 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2767821b-52c7-4982-90be-1b5ac74cf582?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'b62d088d-1886-11f1-81b5-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:30,160 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '47'
+    'apim-request-id': '30243e97-6bfe-4243-8e53-6daa6ed4e9b9'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:29 GMT'
+2026-03-05 11:30:35,167 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2767821b-52c7-4982-90be-1b5ac74cf582?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'b62d088d-1886-11f1-81b5-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:35,444 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '76'
+    'apim-request-id': 'e024ec27-c1bb-4577-bfb6-38345f33c212'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:34 GMT'
+2026-03-05 11:30:35,499 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:30:35,508 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ba46d2aa-1886-11f1-8a22-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:30:35,826 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/404ff96a-fb7f-4092-a20a-0b1a01422fb4?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '71'
+    'apim-request-id': '404ff96a-fb7f-4092-a20a-0b1a01422fb4'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:34 GMT'
+2026-03-05 11:30:35,827 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/404ff96a-fb7f-4092-a20a-0b1a01422fb4?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'ba46d2aa-1886-11f1-8a22-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:35,968 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '57'
+    'apim-request-id': '3f4ae566-c974-4e8a-a4f7-cd0a236dc2e1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:35 GMT'
+2026-03-05 11:30:40,969 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/404ff96a-fb7f-4092-a20a-0b1a01422fb4?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'ba46d2aa-1886-11f1-8a22-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:41,166 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '92'
+    'apim-request-id': '3a62bf83-47d9-4d85-9acc-d6591d39c9cb'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:40 GMT'
+2026-03-05 11:30:41,228 - INFO - Fin de la session de test.
+2026-03-05 11:30:48,432 - INFO - OCREngine initialized successfully
+2026-03-05 11:30:48,432 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:30:48,432 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c1facf71-1886-11f1-a073-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:30:49,769 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f99884fc-8a04-43f0-910e-5fec5a7745c2?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': 'f99884fc-8a04-43f0-910e-5fec5a7745c2'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:49 GMT'
+2026-03-05 11:30:49,769 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f99884fc-8a04-43f0-910e-5fec5a7745c2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'c1facf71-1886-11f1-a073-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:49,906 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '44'
+    'apim-request-id': '8a673a3b-2a08-43c0-a880-e91d97d5b0ed'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:49 GMT'
+2026-03-05 11:30:54,907 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f99884fc-8a04-43f0-910e-5fec5a7745c2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'c1facf71-1886-11f1-a073-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:55,066 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '1'
+    'x-envoy-upstream-service-time': '36'
+    'apim-request-id': '363b046b-87b2-452a-8c9a-af31764339e1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:54 GMT'
+2026-03-05 11:30:56,068 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f99884fc-8a04-43f0-910e-5fec5a7745c2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'c1facf71-1886-11f1-a073-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:56,342 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '75'
+    'apim-request-id': 'eaf15a36-9886-4ef9-ae4d-8462993eccae'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:55 GMT'
+2026-03-05 11:30:56,394 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:30:56,394 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'c6b9cce5-1886-11f1-be21-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:30:56,705 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/e0ad0385-28ef-4526-85ec-0e09cc9b422f?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '89'
+    'apim-request-id': 'e0ad0385-28ef-4526-85ec-0e09cc9b422f'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:56 GMT'
+2026-03-05 11:30:56,708 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/e0ad0385-28ef-4526-85ec-0e09cc9b422f?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'c6b9cce5-1886-11f1-be21-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:30:56,835 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '41'
+    'apim-request-id': '39e0640a-af2b-4d86-aa58-4debc11cf288'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:30:56 GMT'
+2026-03-05 11:31:01,836 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/e0ad0385-28ef-4526-85ec-0e09cc9b422f?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'c6b9cce5-1886-11f1-be21-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:31:02,064 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '105'
+    'apim-request-id': 'f2ac18ef-c728-4376-977a-e6fb53af912d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:01 GMT'
+2026-03-05 11:31:02,124 - INFO - Fin de la session de test.
+2026-03-05 11:31:19,894 - INFO - OCREngine initialized successfully
+2026-03-05 11:31:19,894 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:31:19,897 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'd4bbbdb9-1886-11f1-807c-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:31:21,232 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/481003a0-9dd3-4596-89f9-d1e83dda35f6?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '78'
+    'apim-request-id': '481003a0-9dd3-4596-89f9-d1e83dda35f6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:20 GMT'
+2026-03-05 11:31:21,232 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/481003a0-9dd3-4596-89f9-d1e83dda35f6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd4bbbdb9-1886-11f1-807c-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:31:21,358 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '35'
+    'apim-request-id': 'eb172090-df72-432a-96e5-e2f41eb5bb42'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:20 GMT'
+2026-03-05 11:31:26,360 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/481003a0-9dd3-4596-89f9-d1e83dda35f6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd4bbbdb9-1886-11f1-807c-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:31:26,618 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '66'
+    'apim-request-id': 'becd8aa9-715a-49ee-a603-8f815f858b98'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:25 GMT'
+2026-03-05 11:31:26,674 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:31:26,675 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'd8c63b2f-1886-11f1-ae8e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:31:26,981 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f8743b25-9adb-4cf0-ad18-78251887217b?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '81'
+    'apim-request-id': 'f8743b25-9adb-4cf0-ad18-78251887217b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:26 GMT'
+2026-03-05 11:31:26,981 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f8743b25-9adb-4cf0-ad18-78251887217b?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd8c63b2f-1886-11f1-ae8e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:31:27,121 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '38'
+    'apim-request-id': 'fe9c27af-c40f-4c3b-992e-c59b6c727a46'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:26 GMT'
+2026-03-05 11:31:32,122 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/f8743b25-9adb-4cf0-ad18-78251887217b?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd8c63b2f-1886-11f1-ae8e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:31:32,358 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '108'
+    'apim-request-id': '4d768a05-44e1-4bdb-a72c-55f107ee1850'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:31 GMT'
+2026-03-05 11:31:32,438 - INFO - Fin de la session de test.
+2026-03-05 11:31:55,233 - INFO - OCREngine initialized successfully
+2026-03-05 11:31:55,233 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:31:55,238 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e9cc2da8-1886-11f1-b769-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:31:57,284 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/31a02e38-5fa6-4c22-b5f7-e054f9daffc8?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '72'
+    'apim-request-id': '31a02e38-5fa6-4c22-b5f7-e054f9daffc8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:56 GMT'
+2026-03-05 11:31:57,296 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/31a02e38-5fa6-4c22-b5f7-e054f9daffc8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'e9cc2da8-1886-11f1-b769-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:31:57,440 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '39'
+    'apim-request-id': '6e2c1489-8c7d-4fb5-8f20-964e386f044d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:31:57 GMT'
+2026-03-05 11:32:02,441 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/31a02e38-5fa6-4c22-b5f7-e054f9daffc8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'e9cc2da8-1886-11f1-b769-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:32:02,710 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '89'
+    'apim-request-id': '3993f93d-dd55-4eb6-a758-a4a0cf0dc902'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:32:02 GMT'
+2026-03-05 11:32:02,775 - INFO - result for facture_test.jpg
+2026-03-05 11:32:02,775 - INFO - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0
+}
+2026-03-05 11:32:02,775 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:32:02,776 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ee4af1eb-1886-11f1-8dc3-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:32:03,092 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/ecf4717c-dc62-407f-b85a-7ee8a9127548?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '92'
+    'apim-request-id': 'ecf4717c-dc62-407f-b85a-7ee8a9127548'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:32:02 GMT'
+2026-03-05 11:32:03,098 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/ecf4717c-dc62-407f-b85a-7ee8a9127548?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'ee4af1eb-1886-11f1-8dc3-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:32:03,228 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '43'
+    'apim-request-id': '900710e1-68ec-4bd6-9a6b-992312a2bc4d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:32:02 GMT'
+2026-03-05 11:32:08,228 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/ecf4717c-dc62-407f-b85a-7ee8a9127548?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'ee4af1eb-1886-11f1-8dc3-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:32:08,472 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '125'
+    'apim-request-id': 'b5869a7a-8323-45fc-a5ad-57ecc65579f1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:32:08 GMT'
+2026-03-05 11:32:08,541 - INFO - result for facture_test2.jpeg
+2026-03-05 11:32:08,541 - INFO - {
+  "vendor_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_id": "12345",
+  "subtotal": 380.0,
+  "total_tax": 76.0,
+  "total_amount": 456.0
+}
+2026-03-05 11:32:08,541 - INFO - Fin de la session de test.
+2026-03-05 11:37:16,785 - INFO - OCREngine initialized successfully
+2026-03-05 11:37:16,787 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:37:16,806 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'a977a040-1887-11f1-bae4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:37:18,716 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b3ea9997-8a13-439c-a1ee-55ddffec9fbf?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '93'
+    'apim-request-id': 'b3ea9997-8a13-439c-a1ee-55ddffec9fbf'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:37:17 GMT'
+2026-03-05 11:37:18,720 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b3ea9997-8a13-439c-a1ee-55ddffec9fbf?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a977a040-1887-11f1-bae4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:37:18,864 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '47'
+    'apim-request-id': 'a895dfa0-f651-434e-98a4-ad3a6dcd7752'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:37:18 GMT'
+2026-03-05 11:37:23,865 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/b3ea9997-8a13-439c-a1ee-55ddffec9fbf?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'a977a040-1887-11f1-bae4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:37:24,144 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '79'
+    'apim-request-id': 'ae55281e-9424-4a49-be4e-f4ec81456057'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:37:23 GMT'
+2026-03-05 11:37:24,218 - INFO - result for facture_test.jpg
+2026-03-05 11:37:24,218 - INFO - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0
+}
+2026-03-05 11:37:24,218 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:37:24,228 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'ade48bfb-1887-11f1-a78e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:37:24,536 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2125a41e-9842-4823-be46-83d15df7346f?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '78'
+    'apim-request-id': '2125a41e-9842-4823-be46-83d15df7346f'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:37:23 GMT'
+2026-03-05 11:37:24,536 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2125a41e-9842-4823-be46-83d15df7346f?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'ade48bfb-1887-11f1-a78e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:37:24,670 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '43'
+    'apim-request-id': '36407615-ced7-4ef7-ba8f-7c2952f6198b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:37:23 GMT'
+2026-03-05 11:37:29,675 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/2125a41e-9842-4823-be46-83d15df7346f?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'ade48bfb-1887-11f1-a78e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:37:30,403 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '71'
+    'apim-request-id': '7aede6fe-81f7-45dc-8418-84e3feb5539c'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:37:29 GMT'
+2026-03-05 11:37:30,534 - INFO - result for facture_test2.jpeg
+2026-03-05 11:37:30,534 - INFO - {
+  "vendor_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_id": "12345",
+  "subtotal": 380.0,
+  "total_tax": 76.0,
+  "total_amount": 456.0
+}
+2026-03-05 11:37:30,536 - INFO - Fin de la session de test.
+2026-03-05 11:39:04,656 - INFO - OCREngine initialized successfully
+2026-03-05 11:39:04,658 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:39:04,660 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'e9c10614-1887-11f1-9624-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:39:06,066 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/91f505fa-6afc-45bc-bc08-51825a3d4707?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '64'
+    'apim-request-id': '91f505fa-6afc-45bc-bc08-51825a3d4707'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:39:05 GMT'
+2026-03-05 11:39:06,070 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/91f505fa-6afc-45bc-bc08-51825a3d4707?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'e9c10614-1887-11f1-9624-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:39:06,202 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '49'
+    'apim-request-id': '3dbd7e20-76cf-4750-8c17-3fc29e63abb1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:39:05 GMT'
+2026-03-05 11:39:11,215 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/91f505fa-6afc-45bc-bc08-51825a3d4707?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'e9c10614-1887-11f1-9624-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:39:11,479 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '84'
+    'apim-request-id': 'db7357a3-9982-41d3-ae3b-2c2e0d28b3f7'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:39:10 GMT'
+2026-03-05 11:39:11,550 - INFO - result for facture_test.jpg
+2026-03-05 11:39:11,550 - INFO - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0
+}
+2026-03-05 11:39:11,550 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:39:11,550 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'eddc8cba-1887-11f1-a51a-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:39:11,860 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/07097293-a9a0-4e4e-bfcd-49730681afa2?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '77'
+    'apim-request-id': '07097293-a9a0-4e4e-bfcd-49730681afa2'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:39:11 GMT'
+2026-03-05 11:39:11,861 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/07097293-a9a0-4e4e-bfcd-49730681afa2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'eddc8cba-1887-11f1-a51a-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:39:11,987 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '37'
+    'apim-request-id': '12c5e0f4-631c-48b5-9a88-18e5a8dd7e65'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:39:11 GMT'
+2026-03-05 11:39:16,987 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/07097293-a9a0-4e4e-bfcd-49730681afa2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'eddc8cba-1887-11f1-a51a-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:39:17,224 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '128'
+    'apim-request-id': 'dd4e77dd-0dc8-4e10-ab05-b297c5817c0e'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:39:16 GMT'
+2026-03-05 11:39:17,302 - INFO - result for facture_test2.jpeg
+2026-03-05 11:39:17,302 - INFO - {
+  "vendor_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_id": "12345",
+  "subtotal": 380.0,
+  "total_tax": 76.0,
+  "total_amount": 456.0
+}
+2026-03-05 11:39:17,302 - INFO - Fin de la session de test.
+2026-03-05 11:43:04,982 - INFO - [MainProcess] - --- DÉMARRAGE DU PIPELINE ---
+2026-03-05 11:43:05,127 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-05 11:43:05,127 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 11:43:05,129 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '7915e2f2-1888-11f1-b0ae-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:43:06,851 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/a791ef5b-c928-40e0-886a-cbea0b041f41?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '75'
+    'apim-request-id': 'a791ef5b-c928-40e0-886a-cbea0b041f41'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:43:06 GMT'
+2026-03-05 11:43:06,853 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/a791ef5b-c928-40e0-886a-cbea0b041f41?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '7915e2f2-1888-11f1-b0ae-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:43:06,993 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '36'
+    'apim-request-id': '15c27085-40dc-4033-a628-ca4587d42bf1'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:43:06 GMT'
+2026-03-05 11:43:11,996 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/a791ef5b-c928-40e0-886a-cbea0b041f41?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '7915e2f2-1888-11f1-b0ae-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:43:12,263 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '82'
+    'apim-request-id': 'ba31aa88-7459-4273-b919-00ad1b1de2b8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:43:12 GMT'
+2026-03-05 11:43:12,397 - INFO - [MainProcess] - result for facture_test.jpg
+2026-03-05 11:43:12,398 - INFO - [MainProcess] - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0
+}
+2026-03-05 11:43:12,398 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 11:43:12,399 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '7d6b4022-1888-11f1-ac3e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 11:43:12,711 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/80839263-b17f-4e54-ae2c-428953f5d8d7?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '69'
+    'apim-request-id': '80839263-b17f-4e54-ae2c-428953f5d8d7'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:43:12 GMT'
+2026-03-05 11:43:12,714 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/80839263-b17f-4e54-ae2c-428953f5d8d7?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '7d6b4022-1888-11f1-ac3e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:43:12,860 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '37'
+    'apim-request-id': '860a3c90-270c-42bc-9186-7c1fbdbc5e59'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:43:12 GMT'
+2026-03-05 11:43:17,860 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/80839263-b17f-4e54-ae2c-428953f5d8d7?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '7d6b4022-1888-11f1-ac3e-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 11:43:18,019 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '2999dffa-7659-4c15-b006-4f60580e09e6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 11:43:17 GMT'
+2026-03-05 11:43:18,097 - INFO - [MainProcess] - result for facture_test2.jpeg
+2026-03-05 11:43:18,097 - INFO - [MainProcess] - {
+  "vendor_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_id": "12345",
+  "subtotal": 380.0,
+  "total_tax": 76.0,
+  "total_amount": 456.0
+}
+2026-03-05 12:12:07,726 - INFO - [MainProcess] - --- PIPELINE START-UP ---
+2026-03-05 12:12:07,877 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-05 12:12:07,877 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 12:12:07,893 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '87da7bfd-188c-11f1-aee4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:12:09,365 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/5b22481d-2b03-4b1c-8731-82ce83ed7f30?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '87'
+    'apim-request-id': '5b22481d-2b03-4b1c-8731-82ce83ed7f30'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:12:09 GMT'
+2026-03-05 12:12:09,366 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/5b22481d-2b03-4b1c-8731-82ce83ed7f30?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '87da7bfd-188c-11f1-aee4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:12:09,492 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '36'
+    'apim-request-id': '752709cd-e47d-4525-8cf7-39eb809ac952'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:12:09 GMT'
+2026-03-05 12:12:14,494 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/5b22481d-2b03-4b1c-8731-82ce83ed7f30?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '87da7bfd-188c-11f1-aee4-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:12:14,755 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '69'
+    'apim-request-id': '5e41b837-448a-4ff4-9ec3-ab5637f1e990'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:12:14 GMT'
+2026-03-05 12:12:14,853 - INFO - [MainProcess] - result for facture_test.jpg
+2026-03-05 12:12:14,853 - INFO - [MainProcess] - {
+  "vendor_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_id": "123-456-7890",
+  "subtotal": 5200.0,
+  "total_tax": 1040.0,
+  "total_amount": 6240.0
+}
+2026-03-05 12:12:14,853 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 12:12:14,868 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '8c02d9e5-188c-11f1-a7e9-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:12:15,169 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0a999634-0cb3-4a06-8bef-c9ab35c24941?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '73'
+    'apim-request-id': '0a999634-0cb3-4a06-8bef-c9ab35c24941'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:12:15 GMT'
+2026-03-05 12:12:15,170 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0a999634-0cb3-4a06-8bef-c9ab35c24941?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8c02d9e5-188c-11f1-a7e9-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:12:15,298 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '39'
+    'apim-request-id': '0844816d-bf51-4d31-9be0-8cf738d7212a'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:12:15 GMT'
+2026-03-05 12:12:20,298 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0a999634-0cb3-4a06-8bef-c9ab35c24941?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '8c02d9e5-188c-11f1-a7e9-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:12:20,511 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '94'
+    'apim-request-id': 'da75133d-02d2-4f62-9f2e-98264c2f2e7b'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:12:20 GMT'
+2026-03-05 12:12:20,669 - INFO - [MainProcess] - result for facture_test2.jpeg
+2026-03-05 12:12:20,669 - INFO - [MainProcess] - {
+  "vendor_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_id": "12345",
+  "subtotal": 380.0,
+  "total_tax": 76.0,
+  "total_amount": 456.0
+}
+2026-03-05 12:14:15,387 - INFO - OCREngine initialized successfully
+2026-03-05 12:14:15,387 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 12:14:15,390 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'd3d92b35-188c-11f1-a69c-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:14:16,882 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/195f5050-f922-41fe-a501-62d718827ae6?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '195f5050-f922-41fe-a501-62d718827ae6'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:14:16 GMT'
+2026-03-05 12:14:16,884 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/195f5050-f922-41fe-a501-62d718827ae6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd3d92b35-188c-11f1-a69c-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:14:17,023 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '46'
+    'apim-request-id': '7b9a227f-a6bf-4f63-a72e-81ceda041361'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:14:17 GMT'
+2026-03-05 12:14:22,025 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/195f5050-f922-41fe-a501-62d718827ae6?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd3d92b35-188c-11f1-a69c-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:14:22,271 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '70'
+    'apim-request-id': '345c59e2-a8c9-4552-9be6-2c09cbc337cc'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:14:22 GMT'
+2026-03-05 12:14:22,337 - INFO - result for facture_test.jpg
+2026-03-05 12:14:22,337 - INFO - {
+  "supplier_name": "nomade\nSTUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_ID": "123-456-7890",
+  "total_HT": 5200.0,
+  "total_TVA": 1040.0,
+  "total_TTC": 6240.0
+}
+2026-03-05 12:14:22,337 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 12:14:22,337 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': 'd7fd1902-188c-11f1-a39b-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:14:22,642 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0f86a5a2-eea5-4b42-8169-6fad0f926cf7?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '75'
+    'apim-request-id': '0f86a5a2-eea5-4b42-8169-6fad0f926cf7'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:14:22 GMT'
+2026-03-05 12:14:22,642 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0f86a5a2-eea5-4b42-8169-6fad0f926cf7?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd7fd1902-188c-11f1-a39b-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:14:22,773 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '47'
+    'apim-request-id': 'fb49d14d-bace-4cca-bb45-cc967e0aef8d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:14:22 GMT'
+2026-03-05 12:14:27,774 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0f86a5a2-eea5-4b42-8169-6fad0f926cf7?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': 'd7fd1902-188c-11f1-a39b-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:14:27,947 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '77'
+    'apim-request-id': '8557be8e-9e03-4fca-9a94-056ea6fb7cff'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:14:27 GMT'
+2026-03-05 12:14:28,111 - INFO - result for facture_test2.jpeg
+2026-03-05 12:14:28,111 - INFO - {
+  "supplier_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_ID": "12345",
+  "total_HT": 380.0,
+  "total_TVA": 76.0,
+  "total_TTC": 456.0
+}
+2026-03-05 12:14:28,112 - INFO - End of test session.
+2026-03-05 12:15:31,118 - INFO - OCREngine initialized successfully
+2026-03-05 12:15:31,118 - INFO - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 12:15:31,119 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '00fc7062-188d-11f1-a7fa-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:15:32,560 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/16b267f7-7448-47b9-b5ec-1bb8f7a822e2?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '71'
+    'apim-request-id': '16b267f7-7448-47b9-b5ec-1bb8f7a822e2'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:15:32 GMT'
+2026-03-05 12:15:32,560 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/16b267f7-7448-47b9-b5ec-1bb8f7a822e2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '00fc7062-188d-11f1-a7fa-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:15:32,688 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '39'
+    'apim-request-id': '8b42ff68-077a-4195-afc6-882bc0d14f78'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:15:32 GMT'
+2026-03-05 12:15:37,690 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/16b267f7-7448-47b9-b5ec-1bb8f7a822e2?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '00fc7062-188d-11f1-a7fa-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:15:37,972 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '83'
+    'apim-request-id': '9096df0f-510e-4ab5-9e5f-cb89251fa21d'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:15:37 GMT'
+2026-03-05 12:15:38,034 - INFO - result for facture_test.jpg
+2026-03-05 12:15:38,035 - INFO - {
+  "supplier_name": "nomade STUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_ID": "123-456-7890",
+  "total_HT": 5200.0,
+  "total_TVA": 1040.0,
+  "total_TTC": 6240.0
+}
+2026-03-05 12:15:38,035 - INFO - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 12:15:38,036 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '051baf62-188d-11f1-9a33-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:15:38,404 - INFO - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0d5b5c22-f95f-4412-b415-c2d82e8bbe7e?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '74'
+    'apim-request-id': '0d5b5c22-f95f-4412-b415-c2d82e8bbe7e'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:15:38 GMT'
+2026-03-05 12:15:38,405 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0d5b5c22-f95f-4412-b415-c2d82e8bbe7e?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '051baf62-188d-11f1-9a33-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:15:38,512 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '30'
+    'apim-request-id': 'f2219b88-4fbc-483d-8108-41c97b406b65'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:15:38 GMT'
+2026-03-05 12:15:43,522 - INFO - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/0d5b5c22-f95f-4412-b415-c2d82e8bbe7e?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '051baf62-188d-11f1-9a33-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:15:43,692 - INFO - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '60'
+    'apim-request-id': 'cfdb803b-cea7-47ed-8ce8-927751048562'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:15:43 GMT'
+2026-03-05 12:15:43,754 - INFO - result for facture_test2.jpeg
+2026-03-05 12:15:43,754 - INFO - {
+  "supplier_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_ID": "12345",
+  "total_HT": 380.0,
+  "total_TVA": 76.0,
+  "total_TTC": 456.0
+}
+2026-03-05 12:15:43,754 - INFO - End of test session.
+2026-03-05 12:15:55,402 - INFO - [MainProcess] - --- PIPELINE START-UP ---
+2026-03-05 12:15:55,509 - INFO - [src.ocr_agent] - OCREngine initialized successfully
+2026-03-05 12:15:55,509 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending\facture_test.jpg
+2026-03-05 12:15:55,511 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '0f863be6-188d-11f1-887f-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:16:00,851 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/94bd182d-16ad-4ea3-ab43-59b56809d5ed?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '81'
+    'apim-request-id': '94bd182d-16ad-4ea3-ab43-59b56809d5ed'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:16:00 GMT'
+2026-03-05 12:16:00,854 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/94bd182d-16ad-4ea3-ab43-59b56809d5ed?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '0f863be6-188d-11f1-887f-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:16:01,009 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '50'
+    'apim-request-id': '0d1afb0c-9c86-4b23-a3f3-47ed84f63bf7'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:16:00 GMT'
+2026-03-05 12:16:06,009 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/94bd182d-16ad-4ea3-ab43-59b56809d5ed?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '0f863be6-188d-11f1-887f-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:16:09,331 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '34668'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '77'
+    'apim-request-id': 'cab77b5b-1595-48fd-822a-db722db7d681'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:16:05 GMT'
+2026-03-05 12:16:09,396 - INFO - [MainProcess] - result for facture_test.jpg
+2026-03-05 12:16:09,396 - INFO - [MainProcess] - {
+  "supplier_name": "nomade STUDIO CRÉATIF",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11/ 2035",
+  "invoice_ID": "123-456-7890",
+  "total_HT": 5200.0,
+  "total_TVA": 1040.0,
+  "total_TTC": 6240.0
+}
+2026-03-05 12:16:09,396 - INFO - [src.ocr_agent] - beginning of the analysis:data/pending\facture_test2.jpeg
+2026-03-05 12:16:09,398 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice:analyze?stringIndexType=unicodeCodePoint&api-version=2023-07-31'
+Request method: 'POST'
+Request headers:
+    'Content-Type': 'application/octet-stream'
+    'Accept': 'application/json'
+    'x-ms-client-request-id': '17cd5aee-188d-11f1-9205-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+A body is sent with the request
+2026-03-05 12:16:09,693 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 202
+Response headers:
+    'Content-Length': '0'
+    'Operation-Location': 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/7fac6146-cf0b-4fb2-bf7d-9ebde579cdf8?api-version=2023-07-31'
+    'x-envoy-upstream-service-time': '84'
+    'apim-request-id': '7fac6146-cf0b-4fb2-bf7d-9ebde579cdf8'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:16:09 GMT'
+2026-03-05 12:16:09,693 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/7fac6146-cf0b-4fb2-bf7d-9ebde579cdf8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '17cd5aee-188d-11f1-9205-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:16:09,831 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '106'
+    'Content-Type': 'application/json; charset=utf-8'
+    'retry-after': '5'
+    'x-envoy-upstream-service-time': '46'
+    'apim-request-id': '42fe83e6-5749-46f3-91ad-7d402a1a8784'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:16:09 GMT'
+2026-03-05 12:16:14,832 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Request URL: 'https://mon-extracteur-factures.cognitiveservices.azure.com/formrecognizer/documentModels/prebuilt-invoice/analyzeResults/7fac6146-cf0b-4fb2-bf7d-9ebde579cdf8?api-version=2023-07-31'
+Request method: 'GET'
+Request headers:
+    'x-ms-client-request-id': '17cd5aee-188d-11f1-9205-482ae388540c'
+    'User-Agent': 'azsdk-python-ai-formrecognizer/3.3.3 Python/3.12.7 (Windows-11-10.0.26200-SP0)'
+    'Ocp-Apim-Subscription-Key': 'REDACTED'
+No body was attached to the request
+2026-03-05 12:16:17,766 - INFO - [azure.core.pipeline.policies.http_logging_policy] - Response status: 200
+Response headers:
+    'Content-Length': '39420'
+    'Content-Type': 'application/json; charset=utf-8'
+    'x-envoy-upstream-service-time': '75'
+    'apim-request-id': '8a8acf89-c99c-4a0c-8cc6-0ac30c39c262'
+    'Strict-Transport-Security': 'max-age=31536000; includeSubDomains; preload'
+    'x-content-type-options': 'nosniff'
+    'x-ms-region': 'France Central'
+    'Date': 'Thu, 05 Mar 2026 12:16:14 GMT'
+2026-03-05 12:16:17,831 - INFO - [MainProcess] - result for facture_test2.jpeg
+2026-03-05 12:16:17,832 - INFO - [MainProcess] - {
+  "supplier_name": "yoga",
+  "invoice_date": "30 / 10 / 2035",
+  "due_date": "30 / 11 / 2035",
+  "invoice_ID": "12345",
+  "total_HT": 380.0,
+  "total_TVA": 76.0,
+  "total_TTC": 456.0
+}
