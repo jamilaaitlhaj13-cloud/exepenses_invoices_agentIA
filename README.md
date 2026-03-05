@@ -1,5 +1,11 @@
-Current project: I designed an automated pipeline that retrieves invoices via email (IMAP) and intelligently extracts the data (supplier, amounts, items) by combining Azure OCR and the power of Llama 3 (Groq) to ensure a structured JSON format validated by Pydantic.
+This version of the project includes improvements compared to the previous implementation.
 
-Concrete result: The system transforms unstructured documents (PDFs/images) into an organized Excel database, ready for immediate accounting or financial processing.
+- Removed `print()` statements and replaced them with a centralized logging system that records execution traces into log files.
 
-next steps: Agentic Architecture: Splitting the workflow into specialized agents (Mail, Vision, and Analyst) for better scalability.
+- Separated agent components to improve modularity and maintainability of the codebase.
+
+- Discontinued manual prompt-based extraction since Azure Document Intelligence uses the **prebuilt-invoice** model for automatic invoice data extraction.
+
+- Up to now, the development has focused on implementing the OCR agent responsible for automated invoice data extraction.
+
+- The next planned step for the following week is to develop a mail agent to automate invoice retrieval.
