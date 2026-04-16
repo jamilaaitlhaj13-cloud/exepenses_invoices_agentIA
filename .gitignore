@@ -1,28 +1,9 @@
-#environment
-.env
 venv/
-.venv
-env/
-*.pyc
-#python's environment
 __pycache__/
-
-logs/
-.log
-
-data/*
-!data/.gitkeep
-output/
-#OS/IDE
-.vscode/
-.idea/
-.DS_Store
-Thumbs.db
-
-# --- Temporary Files ---
-*.tmp
-*.xlsx
-*.pdf
-*.png
-*.jpg
-*.jpeg
+*.pyc
+.env
+app.log
+o365_token.txt
+data/pending/*
+data/outputs/*
+data/need_review/*
