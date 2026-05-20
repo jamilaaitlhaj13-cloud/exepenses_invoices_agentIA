@@ -14,28 +14,27 @@ def _require(key: str) -> str:
         )
     return value
 
-
-# ── Azure AD 
+#  Azure AD 
 AZURE_TENANT_ID     = _require("TENANT_ID")
 AZURE_CLIENT_ID     = _require("CLIENT_ID")
 AZURE_CLIENT_SECRET = _require("CLIENT_SECRET")
 
-# ── Outlook 
+#  Outlook 
 USER_EMAIL       = _require("USER_EMAIL")
 ACCOUNTANT_EMAIL = _require("ACCOUNTANT_EMAIL")
 
-# ── Azure Document Intelligence 
+#  Azure Document Intelligence 
 AZURE_DOC_ENDPOINT = _require("AZURE_ENDPOINT")
 AZURE_DOC_KEY      = _require("AZURE_KEY")
 
-# ── Azure OpenAI 
+#  Azure OpenAI 
 AZURE_OPENAI_ENDPOINT    = _require("AZURE_OPENAI_ENDPOINT")
 AZURE_OPENAI_KEY         = _require("AZURE_OPENAI_KEY")
 AZURE_OPENAI_DEPLOYMENT  = _require("AZURE_OPENAI_DEPLOYMENT")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
 LLM_TEMPERATURE          = 0
 
-# ── Pipeline   ← AJOUTE ICI
+#  Pipeline   
 CYCLE_INTERVAL_MINUTES   = int(os.getenv("CYCLE_INTERVAL_MINUTES", "10"))
 OCR_CONFIDENCE_THRESHOLD = float(os.getenv("OCR_CONFIDENCE_THRESHOLD", "0.7"))
 MAX_RETRY_ATTEMPTS       = int(os.getenv("MAX_RETRY_ATTEMPTS", "3"))
