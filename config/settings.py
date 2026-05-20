@@ -39,7 +39,7 @@ CYCLE_INTERVAL_MINUTES   = int(os.getenv("CYCLE_INTERVAL_MINUTES", "10"))
 OCR_CONFIDENCE_THRESHOLD = float(os.getenv("OCR_CONFIDENCE_THRESHOLD", "0.7"))
 MAX_RETRY_ATTEMPTS       = int(os.getenv("MAX_RETRY_ATTEMPTS", "3"))
 
-# ── flies 
+# ── files 
 
 DATA_DIR        = BASE_DIR / "data"
 PENDING_DIR     = DATA_DIR / "pending"
