@@ -28,6 +28,7 @@ temp_*
 .idea/
 
 start_agent.bat
-config/setting.pyconfig/settings.py
+config/setting.py
+
 ms_token.json
 venv/
