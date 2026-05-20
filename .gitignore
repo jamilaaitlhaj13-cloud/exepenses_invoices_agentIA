@@ -1,17 +1,33 @@
+
 venv/
+
 __pycache__/
 *.pyc
-.env
-app.log
-o365_token.txt
-data/pending/*
-data/outputs/*
-data/need_review/*
-data/valid_invoice/*
+*.pyo
+
+models/dit_invoice_classifier/
+
+# Data
 data/dataset/
+data/outputs/
+data/pending/
+data/need_review/
+data/valid_invoice/
+# Logs
+app.log
+*.log
+# Environnement
+.env
+# Tokens
 ms_token.json
+# Fichiers temporaires
 temp_*
 *.zip
+# IDE
 .vscode/
 .idea/
-models/dit_invoice_classifier
+
+start_agent.bat
+config/setting.pyconfig/settings.py
+ms_token.json
+venv/
