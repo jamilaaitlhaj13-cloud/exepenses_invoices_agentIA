@@ -7,3 +7,11 @@ o365_token.txt
 data/pending/*
 data/outputs/*
 data/need_review/*
+data/valid_invoice/*
+data/dataset/
+ms_token.json
+temp_*
+*.zip
+.vscode/
+.idea/
+models/dit_invoice_classifier

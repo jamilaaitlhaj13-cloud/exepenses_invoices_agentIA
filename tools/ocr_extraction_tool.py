@@ -1,18 +1,15 @@
+# tools/ocr_extraction_tool.py
+
 import logging
 from pathlib import Path
 from azure.ai.documentintelligence import DocumentIntelligenceClient
 from azure.ai.documentintelligence.models import AnalyzeResult
 from azure.core.credentials import AzureKeyCredential
-
 from config.settings import AZURE_DOC_ENDPOINT, AZURE_DOC_KEY, OCR_CONFIDENCE_THRESHOLD
 from models.invoice import Invoice
 
 logger = logging.getLogger(__name__)
-
-# Required fields — confidence score is checked for these
 REQUIRED_FIELDS = ["VendorName", "InvoiceDate", "InvoiceTotal"]
-
-
 class OCRExtractionTool:
 
     def __init__(self):
@@ -25,21 +22,16 @@ class OCRExtractionTool:
         """
         Sends the file to Azure Document Intelligence
         and fills the Invoice object with extracted data.
-
-        Args:
-            invoice: Invoice object with source_file already set
-
-        Returns:
-            The same Invoice object enriched with all OCR data
-
-        Raises:
-            RuntimeError: if the Azure API call fails
-            ValueError:   if confidence score is too low on a required field
         """
+        if invoice.source_file is None:
+            raise ValueError("source_file is required for OCR")
         file_path = invoice.source_file
+        if not file_path.exists():
+            raise FileNotFoundError(f"File not found : {file_path}")
+        if file_path.stat().st_size == 0:
+            raise ValueError(f"Empty file:{file_path.name}")
         logger.info(f"OCR processing: {file_path.name}")
 
-        # ── Azure API call ────────────────────────────────
         try:
             with open(file_path, "rb") as f:
                 poller = self._client.begin_analyze_document(
@@ -54,14 +46,12 @@ class OCRExtractionTool:
                 f"Azure Document Intelligence error: {e}"
             ) from e
 
-        # ── Result verification ───────────────────────────
         if not result.documents:
             raise ValueError(
                 f"No document detected in '{file_path.name}'. "
                 f"Please check the scan quality."
             )
 
-        # ── Field extraction ──────────────────────────────
         fields = result.documents[0].fields or {}
         self._fill_invoice(invoice, fields)
 
@@ -70,15 +60,17 @@ class OCRExtractionTool:
             f"{invoice.invoice_date} | "
             f"{invoice.total_amount} {invoice.currency}"
         )
+        if invoice.dit_confidence is not None:
+            logger.info(
+                f"  DiT confidence : {invoice.dit_confidence:.3f} "
+                f"(visual verification)"
+            )
         return invoice
 
     def _fill_invoice(self, invoice: Invoice, fields: dict) -> None:
-        """
-        Iterates over fields returned by Azure and fills the Invoice object.
-        Fields are grouped by type: string, address, date, amount.
-        """
+        """Iterates over fields returned by Azure and fills the Invoice object."""
 
-        # ── String fields ─────────────────────────────────
+        #String fields 
         string_fields = {
             "VendorName":                 "vendor_name",
             "VendorAddressRecipient":     "vendor_address_recipient",
@@ -102,8 +94,7 @@ class OCRExtractionTool:
                 self._check_confidence(azure_key, field.confidence)
                 setattr(invoice, attr, field.value_string or field.content)
 
-        # ── Address fields ────────────────────────────────
-        # Azure returns structured address objects — we use the raw text content
+        #Address fields 
         address_fields = {
             "VendorAddress":     "vendor_address",
             "CustomerAddress":   "customer_address",
@@ -117,7 +108,7 @@ class OCRExtractionTool:
             if field:
                 setattr(invoice, attr, field.content)
 
-        # ── Date fields ───────────────────────────────────
+        #Date fields 
         date_fields = {
             "InvoiceDate":      "invoice_date",
             "DueDate":          "due_date",
@@ -129,13 +120,12 @@ class OCRExtractionTool:
             if field:
                 self._check_confidence(azure_key, field.confidence)
                 if field.value_date:
-                    # Format as YYYY-MM-DD string for consistency
                     setattr(invoice, attr,
                             field.value_date.strftime("%Y-%m-%d"))
                 else:
                     setattr(invoice, attr, field.content)
 
-        # ── Amount fields ─────────────────────────────────
+        #Amount fields 
         amount_fields = {
             "SubTotal":              "subtotal",
             "TotalDiscount":         "total_discount",
@@ -151,13 +141,12 @@ class OCRExtractionTool:
                 amount = self._parse_amount(field)
                 if amount is not None:
                     setattr(invoice, attr, amount)
-                    # Extract currency from the first amount field found
                     if (field.value_currency and
                             field.value_currency.currency_symbol):
                         invoice.currency = \
                             field.value_currency.currency_symbol
 
-        # ── Line items ────────────────────────────────────
+        #Line items 
         items_field = fields.get("Items")
         if items_field and items_field.value_array:
             for item in items_field.value_array:
@@ -174,7 +163,7 @@ class OCRExtractionTool:
                     "date":         self._get_date(item_fields,   "Date"),
                 })
 
-        # ── Payment details ───────────────────────────────
+        #Payment details 
         payment_field = fields.get("PaymentDetails")
         if payment_field and payment_field.value_array:
             for p in payment_field.value_array:
@@ -187,7 +176,7 @@ class OCRExtractionTool:
                     "bpay_reference":      self._get_string(pf, "BPayReference"),
                 })
 
-        # ── Tax details ───────────────────────────────────
+        #Tax details 
         tax_field = fields.get("TaxDetails")
         if tax_field and tax_field.value_array:
             for t in tax_field.value_array:
@@ -197,49 +186,45 @@ class OCRExtractionTool:
                     "rate":   self._get_string(tf, "Rate"),
                 })
 
-    # ── Utility methods ───────────────────────────────────
+    #Utility methods 
 
     def _check_confidence(self, field_name: str,
                           confidence: float) -> None:
-        """
-        Raises ValueError if the confidence score is too low
-        on a required field, triggering a retry in the agent.
-        """
         if (field_name in REQUIRED_FIELDS and
                 confidence is not None and
                 confidence < OCR_CONFIDENCE_THRESHOLD):
             raise ValueError(
                 f"Low confidence score on '{field_name}': "
-                f"{confidence:.2f} < {OCR_CONFIDENCE_THRESHOLD}"
-            )
+                f"{confidence:.2f} < {OCR_CONFIDENCE_THRESHOLD}")
 
     def _parse_amount(self, field) -> float | None:
-        """
-        Extracts a numeric amount from an Azure field.
-        Handles both structured currency values and raw text.
-        """
         if field.value_currency:
             return float(field.value_currency.amount or 0)
         try:
-            return float(
+            cleaned = (
                 str(field.content)
-                .replace(",", ".")
+                .replace("\xa0", "")
                 .replace(" ", "")
+                .replace(",", ".")
                 .replace("€", "")
                 .replace("$", "")
                 .replace("MAD", "")
+                .replace("DH", "")
+                .replace("dh", "")
+                .replace("Dh", "")
+                .replace("DHS", "")
+                .replace("درهم", "")
                 .strip()
             )
+            return float(cleaned) if cleaned else None
         except (ValueError, AttributeError):
             return None
 
     def _get_string(self, fields: dict, key: str) -> str | None:
-        """Extracts a string value from a nested field dict."""
         f = fields.get(key)
         return (f.value_string or f.content) if f else None
 
     def _get_number(self, fields: dict, key: str) -> float | None:
-        """Extracts a numeric value from a nested field dict."""
         f = fields.get(key)
         if not f:
             return None
@@ -249,12 +234,10 @@ class OCRExtractionTool:
             return None
 
     def _get_amount(self, fields: dict, key: str) -> float | None:
-        """Extracts a monetary amount from a nested field dict."""
         f = fields.get(key)
         return self._parse_amount(f) if f else None
 
     def _get_date(self, fields: dict, key: str) -> str | None:
-        """Extracts a date as YYYY-MM-DD string from a nested field dict."""
         f = fields.get(key)
         if not f:
             return None
