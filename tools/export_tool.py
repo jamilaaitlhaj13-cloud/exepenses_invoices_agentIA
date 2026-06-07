@@ -113,8 +113,8 @@ class ExportTool:
             df = pd.DataFrame(all_rows)
 
             # Format numeric columns
-            for col in ["Subtotal", "Tax", "Total",
-                        "Discount", "Amount Due", "DiT Score"]:
+            for col in ["Subtotal", "Tax", "Total", "Discount",
+                        "Amount Due", "Previous Unpaid Balance", "DiT Score"]:
                 if col in df.columns:
                     df[col] = pd.to_numeric(df[col], errors="coerce").round(3)
 
@@ -139,25 +139,37 @@ class ExportTool:
             return None
 
     def _rows_to_invoices(self, rows: list) -> list:
-        """Reconvert Excel rows to Invoice objects."""
+        """Reconvert Excel rows to Invoice objects (pour le Summary)."""
         invoices = []
         for row in rows:
             inv = Invoice()
-            inv.vendor_name      = row.get("Vendor")
-            inv.customer_name    = row.get("Customer")
-            inv.invoice_id       = row.get("Invoice ID")
-            inv.invoice_date     = row.get("Invoice Date")
-            inv.due_date         = row.get("Due Date")
-            inv.total_amount     = row.get("Total")
-            inv.subtotal         = row.get("Subtotal")
-            inv.tax_amount       = row.get("Tax")
-            inv.total_discount   = row.get("Discount")
-            inv.amount_due       = row.get("Amount Due")
-            inv.currency         = row.get("Currency", "MAD")
-            inv.expense_category = row.get("Category")
-            inv.llm_confidence   = row.get("LLM Confidence")
+            inv.vendor_name               = row.get("Vendor")
+            inv.vendor_address            = row.get("Vendor Address")
+            inv.vendor_tax_id             = row.get("Vendor Tax ID")
+            inv.customer_name             = row.get("Customer")
+            inv.customer_id               = row.get("Customer ID")
+            inv.customer_tax_id           = row.get("Customer Tax ID")
+            inv.invoice_id                = row.get("Invoice ID")
+            inv.purchase_order            = row.get("Purchase Order")
+            inv.kvk_number                = row.get("KVK Number")
+            inv.payment_term              = row.get("Payment Term")
+            inv.invoice_date              = row.get("Invoice Date")
+            inv.due_date                  = row.get("Due Date")
+            inv.service_start_date        = row.get("Service Start Date")
+            inv.service_end_date          = row.get("Service End Date")
+            inv.total_amount              = row.get("Total")
+            inv.subtotal                  = row.get("Subtotal")
+            inv.tax_amount                = row.get("Tax")
+            inv.total_discount            = row.get("Discount")
+            inv.amount_due                = row.get("Amount Due")
+            inv.previous_unpaid_balance   = row.get("Previous Unpaid Balance")
+            inv.currency                  = row.get("Currency", "MAD")
+            inv.billing_address           = row.get("Billing Address")
+            inv.shipping_address          = row.get("Shipping Address")
+            inv.expense_category          = row.get("Category")
+            inv.llm_confidence            = row.get("LLM Confidence")
             dit = row.get("DiT Score")
-            inv.dit_confidence   = float(dit) if dit else None
+            inv.dit_confidence            = float(dit) if dit else None
             invoices.append(inv)
         return invoices
 

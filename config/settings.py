@@ -34,12 +34,14 @@ AZURE_OPENAI_DEPLOYMENT  = _require("AZURE_OPENAI_DEPLOYMENT")
 AZURE_OPENAI_API_VERSION = os.getenv("AZURE_OPENAI_API_VERSION", "2024-12-01-preview")
 LLM_TEMPERATURE          = 0
 
-#  Pipeline   
+  
+# Pipeline   
 CYCLE_INTERVAL_MINUTES   = int(os.getenv("CYCLE_INTERVAL_MINUTES", "10"))
 OCR_CONFIDENCE_THRESHOLD = float(os.getenv("OCR_CONFIDENCE_THRESHOLD", "0.7"))
 MAX_RETRY_ATTEMPTS       = int(os.getenv("MAX_RETRY_ATTEMPTS", "3"))
 
-# ── files 
+
+# files 
 
 DATA_DIR        = BASE_DIR / "data"
 PENDING_DIR     = DATA_DIR / "pending"
@@ -49,4 +51,5 @@ VALID_INVOICES_DIR= DATA_DIR / "valid_invoice"
 VALID_INVOICES_DIR.mkdir(exist_ok=True)
 
 for _dir in [PENDING_DIR, OUTPUTS_DIR, NEED_REVIEW_DIR]:
+    _dir.mkdir(parents=True, exist_ok=True)
     _dir.mkdir(parents=True, exist_ok=True)

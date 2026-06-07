@@ -125,20 +125,7 @@ class MailFetcherTool:
         # Check attachment names
         attachment_names = " ".join(a.get("name", "").lower() for a in attachments_meta)
 
-        #Obvious INVOICE
-        obvious_invoice_words = [
-            "facture", "invoice", "rechnung", "فاتورة", "factura", "fatura"
-        ]
-        has_invoice_subject = any(
-            word in subject_lower for word in obvious_invoice_words
-        )
         
-        if has_invoice_subject and has_attachment:
-            logger.info(
-                f"Quick match: obvious invoice subject → INVOICE "
-                f"(subject: '{subject[:60]}')"
-            )
-            return True
         
         #Obvious NOT INVOICE 
         obvious_non_invoice = [
@@ -247,19 +234,12 @@ Return ONLY valid JSON, no markdown, no explanation:
             )
             # Fallback: accept if subject contains obvious invoice words
             subject_lower = subject.lower()
-            return any(
-                word in subject_lower
-                for word in ["facture", "invoice", "rechnung"]
-            )
-
+            return False
         except Exception as e:
             logger.error(f"LLM call failed: {e}")
             # Fallback: accept if subject contains obvious invoice words
             subject_lower = subject.lower()
-            return any(
-                word in subject_lower
-                for word in ["facture", "invoice", "rechnung"]
-            )
+            return False
 
     # GRAPH API
     def get_attachments_metadata(self, message_id: str) -> list:
@@ -298,10 +278,10 @@ Return ONLY valid JSON, no markdown, no explanation:
 
         url    = f"{GRAPH_API}/me/messages"
         params = {
-            "$filter": "isRead eq false and hasAttachments eq true",
-            "$select": "id,subject,from,bodyPreview",
-            "$top":    50,
-        }
+            "$filter": "isRead eq false",
+            "$select": "id,subject,from,bodyPreview,hasAttachments",
+            "$top": 50,
+            }
         try:
             response = requests.get(
                 url,
@@ -323,6 +303,9 @@ Return ONLY valid JSON, no markdown, no explanation:
 
         for msg in messages:
             msg_id  = msg["id"]
+            if not msg.get("hasAttachments"):
+                logger.debug(f"No attachments: '{msg.get('subject', '')[:60]}'")
+                continue
             if msg_id in self._processed_message_ids:
                 logger.info(f"skiping already processed:{msg.get('subject','')[:60]}")
                 continue

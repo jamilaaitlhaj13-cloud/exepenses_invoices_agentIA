@@ -1,34 +1,68 @@
-
+# ── Environnement virtuel ─────────────────────────────────────
 venv/
+.venv/
+env/
 
+# ── Cache Python ──────────────────────────────────────────────
 __pycache__/
 *.pyc
 *.pyo
+*.pyd
+.pytest_cache/
+.mypy_cache/
+*.egg-info/
+dist/
+build/
 
+# ── Modèles IA (trop lourds pour git) ────────────────────────
 models/dit_invoice_classifier/
+*.bin
+*.safetensors
+*.pt
+*.pth
 
-# Data
+# ── Données (ne jamais versionner des factures réelles) ───────
 data/dataset/
 data/outputs/
 data/pending/
 data/need_review/
 data/valid_invoice/
-# Logs
+data/cifar-10-batches-py/
+
+# ── Données multi-compagnie ───────────────────────────────────
+companies/*/data/
+companies/*/.ms_token.json
+
+# ── Logs ──────────────────────────────────────────────────────
 app.log
 *.log
-# Environnement
+
+# ── Variables d'environnement (secrets) ──────────────────────
 .env
-# Tokens
+.env.*
+!.env.example
+
+# ── Tokens Microsoft (secrets) ────────────────────────────────
 ms_token.json
-# Fichiers temporaires
+.ms_token.json
+**/ms_token.json
+**/.ms_token.json
+
+# ── Fichiers temporaires ──────────────────────────────────────
 temp_*
 *.zip
-# IDE
+*.tmp
+
+# ── IDE ───────────────────────────────────────────────────────
 .vscode/
 .idea/
+*.swp
+*.swo
 
+# ── OS ────────────────────────────────────────────────────────
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# ── Divers ────────────────────────────────────────────────────
 start_agent.bat
-config/setting.py
-
-ms_token.json
-venv/
