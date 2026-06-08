@@ -5,11 +5,11 @@ from django.db import models
 INDUSTRY_CHOICES = [
     ('tech',          'Technologie / IT'),
     ('finance',       'Finance & Banque'),
-    ('healthcare',    'Santé'),
+    ('healthcare',    'Sante'),
     ('retail',        'Commerce & Distribution'),
     ('manufacturing', 'Industrie & Production'),
     ('consulting',    'Conseil & Services'),
-    ('education',     'Éducation'),
+    ('education',     'Education'),
     ('real_estate',   'Immobilier'),
     ('transport',     'Transport & Logistique'),
     ('other',         'Autre'),
@@ -33,7 +33,7 @@ class CompanyManager(BaseUserManager):
 
 
 class Company(AbstractUser):
-    """One model = one company account."""
+    """One account = one company."""
     username     = None
     email        = models.EmailField(unique=True)
     company_name = models.CharField(max_length=200)
@@ -41,10 +41,14 @@ class Company(AbstractUser):
     phone        = models.CharField(max_length=20,  blank=True)
     country      = models.CharField(max_length=100, default='Maroc')
     city         = models.CharField(max_length=100, blank=True)
-    rc_number    = models.CharField(max_length=50,  blank=True,
-                                    verbose_name='N° RC / SIRET')
+    rc_number    = models.CharField(max_length=50,  blank=True, verbose_name='N RC / SIRET')
     logo         = models.ImageField(upload_to='logos/', null=True, blank=True)
     created_at   = models.DateTimeField(auto_now_add=True)
+
+    # Email verification
+    is_email_verified = models.BooleanField(default=False)
+    verification_code = models.CharField(max_length=6, blank=True)
+    code_expires_at   = models.DateTimeField(null=True, blank=True)
 
     USERNAME_FIELD  = 'email'
     REQUIRED_FIELDS = ['company_name']
@@ -52,8 +56,8 @@ class Company(AbstractUser):
     objects = CompanyManager()
 
     class Meta:
-        verbose_name         = 'Entreprise'
-        verbose_name_plural  = 'Entreprises'
+        verbose_name        = 'Entreprise'
+        verbose_name_plural = 'Entreprises'
 
     def __str__(self):
         return self.company_name

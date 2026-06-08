@@ -150,12 +150,10 @@ def is_logged_in() -> bool:
 
 
 def logout():
-    for key in ["access_token", "refresh_token", "company_name", "company_id"]:
-        st.session_state.pop(key, None)
+    from utils.session import clear_session_cookies
+    clear_session_cookies()
 
 
 def save_session(data: dict):
-    st.session_state["access_token"]  = data.get("access", "")
-    st.session_state["refresh_token"] = data.get("refresh", "")
-    st.session_state["company_name"]  = data.get("company_name", "")
-    st.session_state["company_id"]    = data.get("company_id", "")
+    from utils.session import save_session_cookies
+    save_session_cookies(data)

@@ -11,7 +11,9 @@ st.set_page_config(page_title="Upload Invoice", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
 from utils.api import is_logged_in, save_invoice, upload_excel, logout
+from utils.session import restore_session
 
+restore_session()
 if not is_logged_in():
     st.switch_page("app.py")
 
@@ -81,7 +83,7 @@ if st.button(" Process Invoice", type="primary", use_container_width=True):
         sys.path.insert(0, str(agent_root))
 
         from agent.smart_expense_agent import SmartExpenseAgent
-        agent = SmartExpenseAgent()
+        agent = SmartExpenseAgent(company_id=st.session_state.get("company_id"))
 
         for i, (msg, detail) in enumerate(steps[:-1]):
             status_text.markdown(f"**{msg}** *({detail})*")

@@ -29,9 +29,11 @@ SCOPES = [
 ]
 
 GRAPH_API  = "https://graph.microsoft.com/v1.0"
-TOKEN_FILE = "ms_token.json"
+DEFAULT_TOKEN_FILE = "ms_token.json"
 class MailFetcherTool:
-    def __init__(self):
+    def __init__(self, token_file: str = DEFAULT_TOKEN_FILE, auth_callback=None):
+        self._token_file = token_file
+        self._auth_callback = auth_callback  # appelé avec le message device flow
         self.client = AzureOpenAI(
             api_key=os.getenv("AZURE_OPENAI_KEY"),
             api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
@@ -39,15 +41,15 @@ class MailFetcherTool:
         )
         self.deployment_name = os.getenv("AZURE_OPENAI_DEPLOYMENT")
         self._token_cache = msal.SerializableTokenCache()
-        if Path(TOKEN_FILE).exists():
-            self._token_cache.deserialize(open(TOKEN_FILE).read())
+        if Path(self._token_file).exists():
+            self._token_cache.deserialize(open(self._token_file).read())
 
         self._app = msal.PublicClientApplication(
             client_id=AZURE_CLIENT_ID,
             authority="https://login.microsoftonline.com/common",
             token_cache=self._token_cache,
         )
-        self._token = self._get_token()
+        self._token = None  # Auth lazy : initialisee au premier appel reseau
         self._pending_messages={}
         self._processed_message_ids=set()
         self._pending_messages={}
@@ -68,9 +70,12 @@ class MailFetcherTool:
         flow = self._app.initiate_device_flow(scopes=SCOPES)
         if "error" in flow:
             raise ConnectionError(f"Device flow failed: {flow.get('error_description')}")
+        msg = flow["message"]
         print("\n" + "=" * 60)
-        print(flow["message"])
+        print(msg)
         print("=" * 60 + "\n")
+        if self._auth_callback:
+            self._auth_callback(msg)
         result = self._app.acquire_token_by_device_flow(flow)
         if "access_token" not in result:
             raise ConnectionError(f"Auth failed: {result.get('error_description')}")
@@ -79,7 +84,7 @@ class MailFetcherTool:
 
     def _save_cache(self):
         if self._token_cache.has_state_changed:
-            with open(TOKEN_FILE, "w") as f:
+            with open(self._token_file, "w") as f:
                 f.write(self._token_cache.serialize())
 
 
@@ -95,7 +100,10 @@ class MailFetcherTool:
 
 
     def _headers(self) -> dict:
-        self._token = self._refresh_token()
+        if self._token is None:
+            self._token = self._get_token()
+        else:
+            self._token = self._refresh_token()
         return {
             "Authorization": f"Bearer {self._token}",
             "Content-Type":  "application/json",

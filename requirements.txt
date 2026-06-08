@@ -1,5 +1,6 @@
 # ── FIX: bcrypt ajouté pour le hashage sécurisé des mots de passe ──
 bcrypt==4.2.1
+extra-streamlit-components>=0.1.60
 
 # ── FIX: pytest ajouté pour les tests unitaires ──────────────────
 pytest==8.3.5

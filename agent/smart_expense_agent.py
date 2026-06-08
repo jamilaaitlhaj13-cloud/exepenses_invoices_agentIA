@@ -35,8 +35,12 @@ class SmartExpenseAgent:
     8. ExportTool           → Excel report per category
     """
 
-    def __init__(self):
-        self.mail_fetcher    = MailFetcherTool()
+    def __init__(self, company_id: int | None = None, auth_callback=None):
+        from pathlib import Path as _Path
+        _root = _Path(__file__).resolve().parent.parent
+        _name = f"ms_token_{company_id}.json" if company_id else "ms_token.json"
+        token_file = str(_root / _name)
+        self.mail_fetcher    = MailFetcherTool(token_file=token_file, auth_callback=auth_callback)
         self.doc_verifier    = DocumentVerifierTool()
         self.enhancer        = ImageEnhancerTool()
         self.ocr             = OCRExtractionTool()

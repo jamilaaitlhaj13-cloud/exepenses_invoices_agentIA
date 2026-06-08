@@ -11,9 +11,11 @@ st.set_page_config(page_title="Pipeline Email", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
 from utils.api import is_logged_in, logout
+from utils.session import restore_session
 # STATE est un singleton module-level → survivre aux reruns Streamlit
 from utils.pipeline_state import STATE, add_event, reset
 
+restore_session()
 if not is_logged_in():
     st.switch_page("app.py")
 
@@ -191,7 +193,12 @@ def _make_ui_log_handler():
 
 # ── Thread principal du pipeline ──────────────────────────────────────────────
 def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, token: str):
-    import logging
+    import logging, traceback
+
+    # S'assurer que le sys.path contient la racine du projet dans ce thread
+    agent_root = str(Path(__file__).resolve().parent.parent.parent)
+    if agent_root not in sys.path:
+        sys.path.insert(0, agent_root)
 
     ui_handler = _make_ui_log_handler()
     ui_handler.setLevel(logging.INFO)
@@ -238,9 +245,15 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                         if inv_id and exported:
                             _upload_excel_to_django(inv_id, str(exported[0]), token)
                             add_event("📊", f"Excel disponible : {vendor} | {amount}")
+                        # Marquer l'email comme lu dans Outlook → ne sera plus retraité
+                        agent.exporter.move_to_valid_invoices(file_path)
+                        agent.exporter.cleanup_pending(file_path)
+                        agent.mail_fetcher.mark_as_validated(file_path)
                     else:
                         # Même en cas d'échec, enregistrer pour ne pas retenter indéfiniment
                         _register_hash(content_hash)
+                        agent.exporter.move_to_need_review(file_path)
+                        agent.mail_fetcher.mark_as_rejected(file_path)
                         add_event("🗂️", f"{file_path.name} → révision manuelle")
 
                 failed = len(files) - len(validated)
@@ -253,7 +266,10 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                     add_event("✔️", f"Cycle #{STATE['cycles']}: {len(validated)} validated, {failed} failed")
 
             except Exception as e:
-                add_event("💥", f"Error: {str(e)[:80]}")
+                tb = traceback.format_exc()
+                short = str(e)[:120]
+                add_event("💥", f"Error: {short}")
+                STATE["last_error"] = tb  # traceback complet accessible en debug
 
             if not stop_event.is_set():
                 add_event("⏳", f"Next cycle in {interval_minutes} min...")
@@ -353,12 +369,23 @@ if STATE["running"] or (STATE["events"] and not run_once):
 
     st.markdown("### 🟢 Pipeline Running" if STATE["running"] else "### ⏹️ Last Session")
 
+    # Microsoft auth — afficher si device flow en attente
+    auth_msg = STATE.get("auth_message", "")
+    if auth_msg:
+        st.warning("🔐 **Microsoft authentication required**")
+        st.code(auth_msg, language=None)
+        st.info("👆 Open the URL above, enter the code, then sign in with your Microsoft account. The pipeline will continue automatically.")
+
     # Counters
     kc1, kc2, kc3, kc4 = st.columns(4)
     kc1.metric("🔄 Cycles",    STATE["cycles"])
     kc2.metric("📋 Processed", STATE["total"])
     kc3.metric("✅ Validated",  STATE["validated"])
     kc4.metric("❌ Failed",     STATE["failed"])
+
+    if STATE.get("last_error"):
+        with st.expander("🐛 Last error — click to see details"):
+            st.code(STATE["last_error"], language="python")
 
     if STATE["current_file"]:
         st.info(f"⚙️ Processing: `{STATE['current_file']}`")

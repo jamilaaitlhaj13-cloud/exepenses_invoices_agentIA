@@ -17,6 +17,8 @@ STATE = {
     "failed":       0,
     "current_file": "",
     "events":       [],   # liste de strings, les plus récents en premier
+    "auth_message": "",  # message device flow Microsoft
+    "last_error":    "",  # dernier traceback complet
 }
 
 

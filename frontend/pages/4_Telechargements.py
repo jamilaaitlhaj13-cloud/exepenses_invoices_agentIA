@@ -13,7 +13,9 @@ st.set_page_config(page_title="Downloads", page_icon="📥", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
 from utils.api import is_logged_in, list_invoices, download_excel, delete_invoice, logout
+from utils.session import restore_session
 
+restore_session()
 if not is_logged_in():
     st.switch_page("app.py")
 
