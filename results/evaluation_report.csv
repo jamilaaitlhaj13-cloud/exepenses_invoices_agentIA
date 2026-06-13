@@ -1,0 +1,11 @@
+file_name,dit_status,confidence,cer,ocr_status,precision,llm_status,e2e_status
+batch1-0494.jpg,correct,0.888918399810791,0.9469,success,0.5,success,success
+batch1-0489.jpg,correct,0.9317576885223389,0.8973,success,0.5,success,success
+batch1-0499.jpg,correct,0.9293631315231323,0.9214,success,0.5,success,success
+batch1-0497.jpg,correct,0.6829419136047363,0.9267,success,0.5,success,success
+batch1-0081.jpg,correct,0.9319911599159241,0.9067,success,0.5,success,success
+batch1-0105.jpg,correct,0.9375296235084534,0.9174,success,0.3333,success,success
+batch1-0019.jpg,correct,0.9203559160232544,0.8957,success,0.5,success,success
+batch1-0108.jpg,correct,0.9392548203468323,0.9224,success,0.5,success,success
+batch1-0087.jpg,correct,0.9314148426055908,0.8642,success,0.5,success,success
+batch1-0151.jpg,correct,0.9347382187843323,0.8994,success,0.5,success,success

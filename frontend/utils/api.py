@@ -21,9 +21,16 @@ def _headers_no_ct():
 
 # ── AUTH ──────────────────────────────────────────────────────────────────────
 
+def _safe_json(r) -> dict:
+    try:
+        return r.json()
+    except Exception:
+        return {"error": f"Erreur serveur ({r.status_code}): {r.text[:300] or 'réponse vide'}"}
+
+
 def register(data: dict) -> dict:
     r = requests.post(f"{BASE_URL}/auth/register/", json=data, timeout=15)
-    return {"ok": r.ok, "data": r.json()}
+    return {"ok": r.ok, "data": _safe_json(r)}
 
 
 def login(email: str, password: str) -> dict:
@@ -32,7 +39,7 @@ def login(email: str, password: str) -> dict:
         json={"email": email, "password": password},
         timeout=15,
     )
-    return {"ok": r.ok, "data": r.json()}
+    return {"ok": r.ok, "data": _safe_json(r)}
 
 
 def refresh_token() -> bool:
@@ -59,6 +66,21 @@ def get_profile() -> dict:
 
 def get_stats() -> dict:
     r = requests.get(f"{BASE_URL}/invoices/stats/", headers=_headers(), timeout=15)
+    return r.json() if r.ok else {}
+
+
+def get_dit_scores() -> list:
+    r = requests.get(f"{BASE_URL}/invoices/dit_scores/", headers=_headers(), timeout=15)
+    return r.json() if r.ok else []
+
+
+def get_timeline() -> list:
+    r = requests.get(f"{BASE_URL}/invoices/timeline/", headers=_headers(), timeout=15)
+    return r.json() if r.ok else []
+
+
+def get_metrics() -> dict:
+    r = requests.get(f"{BASE_URL}/invoices/metrics/", headers=_headers(), timeout=15)
     return r.json() if r.ok else {}
 
 

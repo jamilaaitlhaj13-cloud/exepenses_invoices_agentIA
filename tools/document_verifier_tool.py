@@ -17,7 +17,7 @@ from transformers import (
     BeitForImageClassification,)
 
 logger = logging.getLogger(__name__)
-MODEL_DIR = Path("models/dit_invoice_classifier")
+MODEL_DIR = Path(__file__).resolve().parent.parent / "models" / "dit_invoice_classifier"
 
 class DocumentVerifierTool:
     """
@@ -54,14 +54,14 @@ class DocumentVerifierTool:
             try:
                 with open(threshold_file, 'r') as f:
                     data = json.load(f)
-                    threshold = data.get("optimal_threshold", 0.5)
+                    threshold = data.get("optimal_threshold", 0.3725)
                     logger.info(f"   Loaded optimal threshold: {threshold:.4f}")
                     return threshold
             except Exception as e:
                 logger.warning(f"Could not load threshold file: {e}")
         
-        logger.info("   Using default threshold: 0.5")
-        return 0.5
+        logger.info("   Using default threshold: 0.3725")
+        return 0.3725
 
     def verify(self, file_path: Path) -> Tuple[bool, float, str]:
         """

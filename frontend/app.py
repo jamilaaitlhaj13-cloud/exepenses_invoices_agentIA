@@ -4,7 +4,7 @@ Landing page -- Sign In / Create Account
 import streamlit as st
 import sys, os
 
-sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 st.set_page_config(
     page_title="SmartExpenseAgent",

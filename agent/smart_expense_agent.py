@@ -94,12 +94,16 @@ class SmartExpenseAgent:
 
         # ── Step 2: Process each file ──────────────────
         validated: list[Invoice] = []
+        rejected:  list[Invoice] = []
         failed = 0
 
         for file_path in files:
             invoice = self._process(file_path)
-            if invoice:
+            if invoice and invoice.dit_is_invoice:
                 validated.append(invoice)
+            elif invoice and not invoice.dit_is_invoice:
+                # Rejet DiT haute confiance — loggé en DB par l'appelant
+                rejected.append(invoice)
             else:
                 failed += 1
 
@@ -126,6 +130,8 @@ class SmartExpenseAgent:
         summary = {
             "total":     len(files),
             "validated": len(validated),
+            "rejected":  len(rejected),
+            "rejected_invoices": rejected,
             "failed":    failed,
             "exported":  exported_files,
         }
@@ -134,6 +140,7 @@ class SmartExpenseAgent:
         logger.info(
             f"Cycle complete: "
             f"{summary['validated']}/{summary['total']} valid | "
+            f"{summary['rejected']} rejected by DiT | "
             f"{summary['failed']} failed | "
             f"{len(exported_files)} Excel file(s)"
         )
@@ -175,19 +182,26 @@ class SmartExpenseAgent:
                     f"DiT rejected: {file_path.name} "
                     f"(score={dit_score:.3f}, confidence={confidence})"
                 )
-                self.exporter.move_to_need_review(file_path)
-                self.mail_fetcher.mark_as_rejected(file_path)
-                return None
-
-            logger.info(
-                f"DiT confirmed invoice: {file_path.name} "
-                f"(score={dit_score:.3f}, confidence={confidence})"
-            )
+                invoice.source_filename = file_path.name
 
         except Exception as e:
             logger.error(f"DocumentVerifier error: {e}")
             self.exporter.move_to_need_review(file_path)
             return None
+
+        # Rejet DiT — en dehors du try pour éviter que mark_as_rejected
+        # (sans contexte email) ne masque le résultat
+        if not invoice.dit_is_invoice:
+            try:
+                self.mail_fetcher.mark_as_rejected(file_path)
+            except Exception:
+                pass  # contexte upload : pas d'email à marquer
+            return invoice
+
+        logger.info(
+            f"DiT confirmed invoice: {file_path.name} "
+            f"(score={dit_score:.3f}, confidence={confidence})"
+        )
 
         # ═══════════════════════════════════════════════════
         # STEP 2: OCR + Classification + Validation (with intelligent retry)

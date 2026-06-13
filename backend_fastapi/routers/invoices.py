@@ -4,7 +4,7 @@ from typing import Optional
 from fastapi import APIRouter, Depends, HTTPException, UploadFile, File
 from fastapi.responses import FileResponse
 from sqlalchemy.orm import Session
-from sqlalchemy import func
+from sqlalchemy import func, cast, Date
 from database import get_db
 from models import InvoiceRecord
 from schemas import InvoiceCreate, InvoiceResponse
@@ -92,6 +92,99 @@ def get_stats(
         "by_source":    [{"source": r[0], "count": r[1]} for r in by_source],
         "recent":       recent,
     }
+
+
+@router.get("/metrics/")
+def get_metrics(
+    company=Depends(get_current_company),
+    db: Session = Depends(get_db),
+):
+    qs = db.query(InvoiceRecord).filter(InvoiceRecord.company_id == company.id)
+    total       = qs.count()
+    validated   = qs.filter(InvoiceRecord.status == "validated").count()
+    rejected    = qs.filter(InvoiceRecord.status == "rejected").count()
+    need_review = qs.filter(InvoiceRecord.status == "need_review").count()
+
+    # Taux de filtrage DiT : % de docs rejetés visuellement
+    dit_filter_rate = round(rejected / total * 100, 1) if total else 0.0
+
+    # Taux de validation parmi les docs acceptés par DiT
+    accepted_by_dit = validated + need_review
+    validation_rate = round(validated / accepted_by_dit * 100, 1) if accepted_by_dit else 0.0
+
+    # Taux de décision globale : docs traités sans ambiguïté
+    decision_rate = round((validated + rejected) / total * 100, 1) if total else 0.0
+
+    # Score DiT moyen par statut
+    avg_dit_rejected = db.query(func.avg(InvoiceRecord.dit_confidence)).filter(
+        InvoiceRecord.company_id == company.id,
+        InvoiceRecord.status == "rejected",
+        InvoiceRecord.dit_confidence.isnot(None),
+    ).scalar()
+
+    avg_dit_validated = db.query(func.avg(InvoiceRecord.dit_confidence)).filter(
+        InvoiceRecord.company_id == company.id,
+        InvoiceRecord.status == "validated",
+        InvoiceRecord.dit_confidence.isnot(None),
+    ).scalar()
+
+    # Rejets haute confiance DiT (score < 0.3 → très loin du seuil)
+    high_conf_rejections = db.query(InvoiceRecord).filter(
+        InvoiceRecord.company_id == company.id,
+        InvoiceRecord.status == "rejected",
+        InvoiceRecord.dit_confidence.isnot(None),
+        InvoiceRecord.dit_confidence < 0.3,
+    ).count()
+
+    return {
+        "total":                total,
+        "validated":            validated,
+        "rejected":             rejected,
+        "need_review":          need_review,
+        "dit_filter_rate":      dit_filter_rate,
+        "validation_rate":      validation_rate,
+        "decision_rate":        decision_rate,
+        "avg_dit_score_rejected":  round(float(avg_dit_rejected), 3) if avg_dit_rejected else None,
+        "avg_dit_score_validated": round(float(avg_dit_validated), 3) if avg_dit_validated else None,
+        "high_confidence_rejections": high_conf_rejections,
+    }
+
+
+@router.get("/dit_scores/")
+def get_dit_scores(
+    company=Depends(get_current_company),
+    db: Session = Depends(get_db),
+):
+    """Scores DiT individuels par statut — pour l'histogramme de distribution."""
+    rows = db.query(
+        InvoiceRecord.dit_confidence,
+        InvoiceRecord.status,
+    ).filter(
+        InvoiceRecord.company_id == company.id,
+        InvoiceRecord.dit_confidence.isnot(None),
+    ).all()
+    return [{"score": round(float(r[0]), 4), "status": r[1]} for r in rows]
+
+
+@router.get("/timeline/")
+def get_timeline(
+    company=Depends(get_current_company),
+    db: Session = Depends(get_db),
+):
+    """Nombre de factures traitées par jour — pour le graphique d'évolution."""
+    rows = db.query(
+        cast(InvoiceRecord.created_at, Date).label("day"),
+        InvoiceRecord.status,
+        func.count(InvoiceRecord.id).label("count"),
+    ).filter(
+        InvoiceRecord.company_id == company.id,
+    ).group_by(
+        cast(InvoiceRecord.created_at, Date),
+        InvoiceRecord.status,
+    ).order_by(
+        cast(InvoiceRecord.created_at, Date),
+    ).all()
+    return [{"day": str(r[0]), "status": r[1], "count": r[2]} for r in rows]
 
 
 @router.get("/check_hash/")

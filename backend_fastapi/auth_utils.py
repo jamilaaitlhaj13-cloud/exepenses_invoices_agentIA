@@ -1,7 +1,7 @@
 # backend_fastapi/auth_utils.py
 import os, random, string
+import bcrypt
 from datetime import datetime, timedelta
-from passlib.context import CryptContext
 from jose import JWTError, jwt
 from fastapi import Depends, HTTPException, status
 from fastapi.security import HTTPBearer, HTTPAuthorizationCredentials
@@ -9,19 +9,18 @@ from sqlalchemy.orm import Session
 from database import get_db
 from models import Company
 
-SECRET_KEY      = os.getenv("DJANGO_SECRET_KEY", "fastapi-secret-key-change-in-production")
+SECRET_KEY      = os.getenv("SECRET_KEY", "fastapi-secret-key-change-in-production")
 ALGORITHM       = "HS256"
 ACCESS_EXPIRE   = 60 * 8      # 8 heures
 REFRESH_EXPIRE  = 60 * 24 * 30  # 30 jours
 
-pwd_context = CryptContext(schemes=["bcrypt"], deprecated="auto")
-bearer      = HTTPBearer()
+bearer = HTTPBearer()
 
 def hash_password(password: str) -> str:
-    return pwd_context.hash(password)
+    return bcrypt.hashpw(password.encode("utf-8"), bcrypt.gensalt()).decode("utf-8")
 
 def verify_password(plain: str, hashed: str) -> bool:
-    return pwd_context.verify(plain, hashed)
+    return bcrypt.checkpw(plain.encode("utf-8"), hashed.encode("utf-8"))
 
 def create_token(data: dict, expires_minutes: int) -> str:
     payload = data.copy()
