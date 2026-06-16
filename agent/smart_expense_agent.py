@@ -288,9 +288,12 @@ class SmartExpenseAgent:
         )
 
         self.exporter.move_to_need_review(file_path)
-        self.mail_fetcher.notify_accountant(
-            filename=file_path.name,
-            errors=last_errors or ["Unknown error"],
-        )
+        try:
+            self.mail_fetcher.notify_accountant(
+                filename=file_path.name,
+                errors=last_errors or ["Unknown error"],
+            )
+        except Exception:
+            pass  # no email context in upload mode
 
         return None

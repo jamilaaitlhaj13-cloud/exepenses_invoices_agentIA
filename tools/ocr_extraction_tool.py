@@ -13,9 +13,12 @@ REQUIRED_FIELDS = ["VendorName", "InvoiceDate", "InvoiceTotal"]
 class OCRExtractionTool:
 
     def __init__(self):
+        from azure.core.pipeline.transport import RequestsTransport
+        transport = RequestsTransport(connection_timeout=30, read_timeout=120)
         self._client = DocumentIntelligenceClient(
             endpoint=AZURE_DOC_ENDPOINT,
             credential=AzureKeyCredential(AZURE_DOC_KEY),
+            transport=transport,
         )
 
     def extract(self, invoice: Invoice) -> Invoice:
@@ -32,14 +35,40 @@ class OCRExtractionTool:
             raise ValueError(f"Empty file:{file_path.name}")
         logger.info(f"OCR processing: {file_path.name}")
 
+        # Map extension to correct MIME type (Azure is strict about this for images)
+        _mime_map = {
+            ".pdf":  "application/pdf",
+            ".jpg":  "image/jpeg",
+            ".jpeg": "image/jpeg",
+            ".png":  "image/png",
+            ".tiff": "image/tiff",
+            ".tif":  "image/tiff",
+            ".bmp":  "image/bmp",
+        }
+        content_type = _mime_map.get(file_path.suffix.lower(), "application/octet-stream")
+
+        # Pre-check quota before calling SDK (avoids silent hang on 403)
+        import requests as _requests
+        _api_ver = "2024-11-30"
+        _check = _requests.get(
+            f"{AZURE_DOC_ENDPOINT.rstrip('/')}/documentintelligence/documentModels?api-version={_api_ver}",
+            headers={"Ocp-Apim-Subscription-Key": AZURE_DOC_KEY},
+            timeout=15,
+        )
+        if _check.status_code == 403:
+            _msg = _check.json().get("error", {}).get("message", "Quota épuisé")
+            raise RuntimeError(f"Azure quota épuisé (403): {_msg}")
+        if _check.status_code == 401:
+            raise RuntimeError("Clé Azure invalide ou expirée (401)")
+
         try:
             with open(file_path, "rb") as f:
                 poller = self._client.begin_analyze_document(
                     model_id="prebuilt-invoice",
                     body=f,
-                    content_type="application/octet-stream",
+                    content_type=content_type,
                 )
-            result: AnalyzeResult = poller.result()
+            result: AnalyzeResult = poller.result(timeout=120)
 
         except Exception as e:
             raise RuntimeError(

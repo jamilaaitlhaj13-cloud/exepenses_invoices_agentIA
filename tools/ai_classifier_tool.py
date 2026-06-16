@@ -102,6 +102,7 @@ class AIClassifierTool:
             azure_deployment=AZURE_OPENAI_DEPLOYMENT,
             api_version=AZURE_OPENAI_API_VERSION,
             temperature=LLM_TEMPERATURE,
+            request_timeout=60,
         )
         self._parser = JsonOutputParser()
         self._prompt = ChatPromptTemplate.from_messages([

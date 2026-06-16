@@ -424,8 +424,23 @@ Return ONLY valid JSON, no markdown, no explanation:
         except Exception as e:
             logger.warning(f"Mark as read failed: {e}")
 
-    def notify_accountant(self,filename: str,errors: list[str]) -> None:
-        """Send notification to accountant when an invoice cannot be processed."""
+    def has_valid_token(self) -> bool:
+        """Check if a valid cached MS token exists — without triggering device flow."""
+        accounts = self._app.get_accounts()
+        if not accounts:
+            return False
+        result = self._app.acquire_token_silent(SCOPES, account=accounts[0])
+        return bool(result and "access_token" in result)
+
+    def notify_accountant(self, filename: str, errors: list[str]) -> bool:
+        """Send notification to accountant when an invoice cannot be processed.
+        Returns True if sent, False if no token available (does NOT start device flow).
+        """
+        # Skip silently if no cached token — avoids blocking on device flow
+        if not self.has_valid_token():
+            logger.info("No MS token cached — skipping email notification")
+            return False
+
         errors_html = "".join(f"<li>{e}</li>" for e in errors)
         body_html = f"""
         <p>Hello,</p>
@@ -459,12 +474,13 @@ Return ONLY valid JSON, no markdown, no explanation:
             )
             if response.ok:
                 logger.info(f"Notification sent to {ACCOUNTANT_EMAIL}")
+                return True
             else:
-                logger.error(
-                    f"Notification failed: {response.text[:100]}"
-                )
+                logger.error(f"Notification failed: {response.text[:100]}")
+                return False
         except Exception as e:
             logger.error(f"Notification error: {e}")
+            return False
     def mark_message_as_read(self, file_path: Path) -> None:
         """Mark email as read AFTER successful processing."""
         msg_id = self._pending_messages.pop(str(file_path), None)

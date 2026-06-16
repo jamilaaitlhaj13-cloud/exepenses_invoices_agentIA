@@ -89,31 +89,55 @@ def _save_invoice_to_django(invoice, filename: str, token: str,
         "vendor_name":         invoice.vendor_name or "",
         "invoice_date":        invoice.invoice_date or "",
         "invoice_id":          invoice.invoice_id or "",
-        "total_amount":        str(invoice.total_amount) if invoice.total_amount else None,
-        "subtotal":            str(invoice.subtotal) if invoice.subtotal else None,
-        "tax_amount":          str(invoice.tax_amount) if invoice.tax_amount else None,
+        "total_amount":        float(invoice.total_amount) if invoice.total_amount else None,
+        "subtotal":            float(invoice.subtotal) if invoice.subtotal else None,
+        "tax_amount":          float(invoice.tax_amount) if invoice.tax_amount else None,
         "currency":            invoice.currency or "MAD",
         "expense_category":    invoice.expense_category or "Other",
-        "dit_confidence":      invoice.dit_confidence,
+        "dit_confidence":      float(invoice.dit_confidence) if invoice.dit_confidence is not None else None,
         "dit_label":           invoice.dit_label or "",
-        "dit_is_invoice":      invoice.dit_is_invoice,
+        "dit_is_invoice":      bool(invoice.dit_is_invoice) if invoice.dit_is_invoice is not None else False,
         "llm_confidence":      invoice.llm_confidence or "",
-        "is_valid":            invoice.is_valid,
+        "is_valid":            bool(invoice.is_valid) if invoice.is_valid is not None else False,
         "validation_errors":   invoice.validation_errors or [],
         "validation_warnings": invoice.validation_warnings or [],
-        "attempt_count":       invoice.attempt_count,
+        "attempt_count":       int(invoice.attempt_count) if invoice.attempt_count else 1,
         "status":              status_val,
         "source_filename":     filename,
         "source":              "email",
         "content_hash":        content_hash,
     }
     try:
-        r = requests.post(f"{DJANGO_URL}/invoices/", json=data,
-                          headers={"Authorization": f"Bearer {token}"}, timeout=15)
+        r = requests.post(
+            f"{DJANGO_URL}/invoices/",
+            json=data,
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+            timeout=15,
+        )
         if r.ok:
             return r.json().get("id")
-    except Exception:
-        pass
+        else:
+            add_event("", f"[DB ERROR] {r.status_code}: {r.text[:200]}")
+    except Exception as e:
+        add_event("", f"[DB ERROR] {str(e)[:150]}")
+    return None
+
+
+def _save_invoice_to_django_raw(data: dict, token: str) -> int | None:
+    """Save a raw dict (no Invoice object) directly to the DB."""
+    try:
+        r = requests.post(
+            f"{DJANGO_URL}/invoices/",
+            json=data,
+            headers={"Authorization": f"Bearer {token}", "Content-Type": "application/json"},
+            timeout=15,
+        )
+        if r.ok:
+            return r.json().get("id")
+        else:
+            add_event("", f"[DB ERROR] {r.status_code}: {r.text[:200]}")
+    except Exception as e:
+        add_event("", f"[DB ERROR] {str(e)[:150]}")
     return None
 
 
@@ -239,12 +263,31 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                         _register_hash(content_hash)
                         _save_invoice_to_django(invoice, file_path.name, token,
                                                 content_hash=content_hash)
-                        add_event("", f"DiT rejected (high confidence, score={invoice.dit_confidence:.3f}): {file_path.name}")
+                        try:
+                            agent.mail_fetcher.mark_as_validated(file_path)
+                        except Exception:
+                            pass
+                        add_event("", f"DiT rejected (score={invoice.dit_confidence:.3f}): {file_path.name}")
                     else:
                         _register_hash(content_hash)
                         agent.exporter.move_to_need_review(file_path)
-                        agent.mail_fetcher.mark_as_rejected(file_path)
-                        add_event("", f"{file_path.name} -> manual review")
+                        try:
+                            agent.mail_fetcher.mark_as_rejected(file_path)
+                        except Exception:
+                            pass
+                        _save_invoice_to_django_raw({
+                            "vendor_name": "", "invoice_date": "", "invoice_id": "",
+                            "total_amount": None, "subtotal": None, "tax_amount": None,
+                            "currency": "MAD", "expense_category": "Other",
+                            "dit_confidence": None, "dit_label": "", "dit_is_invoice": True,
+                            "llm_confidence": "", "is_valid": False,
+                            "validation_errors": ["Processing failed — manual review required"],
+                            "validation_warnings": [],
+                            "attempt_count": 3, "status": "need_review",
+                            "source_filename": file_path.name, "source": "email",
+                            "content_hash": content_hash,
+                        }, token)
+                        add_event("", f"{file_path.name} -> need review (saved to DB)")
 
                 failed = len(files) - len(validated)
                 STATE["total"]     += len(files)
@@ -473,6 +516,18 @@ if run_once:
             failed_files.append(file_path.name)
         else:
             _register_hash(content_hash)
+            _save_invoice_to_django_raw({
+                "vendor_name": "", "invoice_date": "", "invoice_id": "",
+                "total_amount": None, "subtotal": None, "tax_amount": None,
+                "currency": "MAD", "expense_category": "Other",
+                "dit_confidence": None, "dit_label": "", "dit_is_invoice": True,
+                "llm_confidence": "", "is_valid": False,
+                "validation_errors": ["Processing failed — manual review required"],
+                "validation_warnings": [],
+                "attempt_count": 3, "status": "need_review",
+                "source_filename": file_path.name, "source": "email",
+                "content_hash": content_hash,
+            }, token)
             st.error(f"`{file_path.name}` — moved to manual review")
             failed_files.append(file_path.name)
 
