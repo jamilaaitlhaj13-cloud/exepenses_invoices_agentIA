@@ -8,35 +8,35 @@ from typing import Optional
 @dataclass
 class Invoice:
 
-    # ── Source ────────────────────────────────────────────
+    # ── Source 
     source_file: Optional[Path] = None
 
-    # ── Vendor ───────────────────────────────────────────
+    # ── Vendor 
     vendor_name:              Optional[str]   = None
     vendor_address:           Optional[str]   = None
     vendor_address_recipient: Optional[str]   = None
     vendor_tax_id:            Optional[str]   = None
 
-    # ── Customer ──────────────────────────────────────────
+    # ── Customer 
     customer_name:               Optional[str] = None
     customer_id:                 Optional[str] = None
     customer_address:            Optional[str] = None
     customer_address_recipient:  Optional[str] = None
     customer_tax_id:             Optional[str] = None
 
-    # ── Invoice info ──────────────────────────────────────
+    # ── Invoice info 
     invoice_id:     Optional[str] = None
     purchase_order: Optional[str] = None
     kvk_number:     Optional[str] = None
     payment_term:   Optional[str] = None
 
-    # ── Dates ─────────────────────────────────────────────
+    # ── Dates 
     invoice_date:      Optional[str] = None
     due_date:          Optional[str] = None
     service_start_date:Optional[str] = None
     service_end_date:  Optional[str] = None
 
-    # ── Amounts ───────────────────────────────────────────
+    # ── Amounts 
     subtotal:               Optional[float] = None
     total_discount:         Optional[float] = None
     tax_amount:             Optional[float] = None
@@ -45,7 +45,7 @@ class Invoice:
     previous_unpaid_balance:Optional[float] = None
     currency:               Optional[str]   = None
 
-    # ── Addresses ─────────────────────────────────────────
+    # ── Addresses 
     billing_address:             Optional[str] = None
     billing_address_recipient:   Optional[str] = None
     shipping_address:            Optional[str] = None
@@ -55,12 +55,12 @@ class Invoice:
     service_address:             Optional[str] = None
     service_address_recipient:   Optional[str] = None
 
-    # ── Line items ────────────────────────────────────────
+    # ── Line items 
     items:           list = field(default_factory=list)
     payment_details: list = field(default_factory=list)
     tax_details:     list = field(default_factory=list)
 
-    # ── Classification ────────────────────────────────────
+    # ── Classification 
     expense_category: Optional[str] = None
     llm_confidence:   Optional[str] = None
 
@@ -70,16 +70,15 @@ class Invoice:
     dit_is_invoice:  Optional[bool] = None  # True if invoice detected
     llm_email_label: Optional[str]  = None
 
-    # ── Processing metadata ───────────────────────────────
+    # ── Processing metadata 
     attempt_count: int = 0
 
-    # ── Validation ────────────────────────────────────────
+    # ── Validation 
     is_valid:            Optional[bool] = None
     validation_errors:   list = field(default_factory=list)
     validation_warnings: list = field(default_factory=list)
 
     def to_dict(self) -> dict:
-        # Line items → string compacte (une ligne par article)
         items_str = ""
         if self.items:
             parts = []

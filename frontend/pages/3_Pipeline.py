@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 st.set_page_config(page_title="Pipeline Email", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
-from utils.api import is_logged_in, logout, upload_document
+from utils.api import is_logged_in, logout
 from utils.session import restore_session
 from utils.pipeline_state import STATE, add_event, reset
 
@@ -155,6 +155,23 @@ def _upload_excel_to_django(invoice_id: int, excel_path: str, token: str):
         pass
 
 
+def _upload_document_to_django(invoice_id: int, file_path: Path, token: str):
+    """Upload le fichier original pour permettre la prévisualisation dans Document Review."""
+    try:
+        ext  = file_path.suffix.lower()
+        mime = {".pdf": "application/pdf", ".png": "image/png",
+                ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}.get(ext, "application/octet-stream")
+        with open(file_path, "rb") as f:
+            requests.post(
+                f"{DJANGO_URL}/invoices/{invoice_id}/upload_document/",
+                headers={"Authorization": f"Bearer {token}"},
+                files={"document": (file_path.name, f, mime)},
+                timeout=20,
+            )
+    except Exception:
+        pass
+
+
 def _make_ui_log_handler():
     import logging
 
@@ -263,27 +280,22 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                         _register_hash(content_hash)
                         inv_id = _save_invoice_to_django(invoice, file_path.name, token,
                                                          content_hash=content_hash)
-                        # Stocker le fichier original pour révision visuelle
                         if inv_id and file_path.exists():
-                            try:
-                                upload_document(inv_id, file_path.read_bytes(), file_path.name)
-                            except Exception:
-                                pass
+                            _upload_document_to_django(inv_id, file_path, token)
                         try:
                             agent.mail_fetcher.mark_as_validated(file_path)
                         except Exception:
                             pass
+                        STATE["rejected"] += 1
                         add_event("", f"DiT rejected (score={invoice.dit_confidence:.3f}): {file_path.name}")
                     else:
                         _register_hash(content_hash)
-                        # Lire les bytes avant déplacement
-                        _doc_bytes = file_path.read_bytes() if file_path.exists() else None
-                        agent.exporter.move_to_need_review(file_path)
+                        need_review_path = agent.exporter.move_to_need_review(file_path)
                         try:
                             agent.mail_fetcher.mark_as_rejected(file_path)
                         except Exception:
                             pass
-                        inv_id = _save_invoice_to_django_raw({
+                        raw_id = _save_invoice_to_django_raw({
                             "vendor_name": "", "invoice_date": "", "invoice_id": "",
                             "total_amount": None, "subtotal": None, "tax_amount": None,
                             "currency": "MAD", "expense_category": "Other",
@@ -295,11 +307,10 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                             "source_filename": file_path.name, "source": "email",
                             "content_hash": content_hash,
                         }, token)
-                        if inv_id and _doc_bytes:
-                            try:
-                                upload_document(inv_id, _doc_bytes, file_path.name)
-                            except Exception:
-                                pass
+                        if raw_id:
+                            dest = Path("data/need_review") / file_path.name
+                            if dest.exists():
+                                _upload_document_to_django(raw_id, dest, token)
                         add_event("", f"{file_path.name} -> need review (saved to DB)")
 
                 failed = len(files) - len(validated)
@@ -308,8 +319,12 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                 STATE["failed"]    += failed
                 STATE["current_file"] = ""
 
+                # System Handling Rate — mis à jour après chaque cycle
+                _total = STATE["total"]
+                _rate  = round(STATE["validated"] / _total * 100, 1) if _total > 0 else 0.0
+
                 if files:
-                    add_event("", f"Cycle #{STATE['cycles']}: {len(validated)} validated, {failed} failed")
+                    add_event("", f"Cycle #{STATE['cycles']}: {len(validated)} validated, {failed} failed | Handling Rate: {_rate}%")
 
             except Exception as e:
                 tb = traceback.format_exc()
@@ -336,7 +351,6 @@ with st.sidebar:
     st.page_link("pages/2_Upload.py",          label="Upload Invoice")
     st.page_link("pages/3_Pipeline.py",        label="Run Pipeline")
     st.page_link("pages/4_Telechargements.py", label="Downloads")
-    st.page_link("pages/5_Review.py",          label="Document Review")
     st.markdown("---")
     if st.button("Sign Out", use_container_width=True):
         logout()
@@ -419,11 +433,16 @@ if STATE["running"] or (STATE["events"] and not run_once):
         st.code(auth_msg, language=None)
         st.info("Open the URL above, enter the code, then sign in with your Microsoft account. The pipeline will continue automatically.")
 
-    kc1, kc2, kc3, kc4 = st.columns(4)
-    kc1.metric("Cycles",    STATE["cycles"])
-    kc2.metric("Processed", STATE["total"])
-    kc3.metric("Validated",  STATE["validated"])
-    kc4.metric("Failed",     STATE["failed"])
+    _t = STATE["total"]
+    _handling_rate = round(STATE["validated"] / _t * 100, 1) if _t > 0 else 0.0
+
+    kc1, kc2, kc3, kc4, kc5 = st.columns(5)
+    kc1.metric("Cycles",         STATE["cycles"])
+    kc2.metric("Processed",      _t)
+    kc3.metric("Validated",      STATE["validated"])
+    kc4.metric("Failed",         STATE["failed"])
+    kc5.metric("Handling Rate",  f"{_handling_rate}%",
+               help="validated / total processed")
 
     if STATE.get("last_error"):
         with st.expander("Last error — click to see details"):

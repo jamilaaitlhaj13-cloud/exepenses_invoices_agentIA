@@ -82,16 +82,6 @@ def get_stats(
     recent = [InvoiceResponse.model_validate(i)
               for i in qs.order_by(InvoiceRecord.created_at.desc()).limit(5).all()]
 
-    top_vendors = db.query(
-        InvoiceRecord.vendor_name,
-        func.count(InvoiceRecord.id).label("count"),
-    ).filter(
-        InvoiceRecord.company_id == company.id,
-        InvoiceRecord.status == "validated",
-        InvoiceRecord.vendor_name.isnot(None),
-        InvoiceRecord.vendor_name != "",
-    ).group_by(InvoiceRecord.vendor_name).order_by(func.count(InvoiceRecord.id).desc()).limit(10).all()
-
     return {
         "total":        total,
         "validated":    validated,
@@ -100,7 +90,6 @@ def get_stats(
         "total_amount": float(total_amount),
         "by_category":  [{"expense_category": r[0], "count": r[1], "amount": r[2]} for r in by_cat],
         "by_source":    [{"source": r[0], "count": r[1]} for r in by_source],
-        "top_vendors":  [{"vendor": r[0], "count": r[1]} for r in top_vendors],
         "recent":       recent,
     }
 
@@ -220,12 +209,12 @@ def get_to_review(
     company=Depends(get_current_company),
     db: Session = Depends(get_db),
 ):
-    """Retourne les factures rejected + need_review pour révision visuelle."""
+    """Retourne toutes les factures rejected ou need_review pour révision manuelle."""
     rows = db.query(InvoiceRecord).filter(
         InvoiceRecord.company_id == company.id,
         InvoiceRecord.status.in_(["rejected", "need_review"]),
     ).order_by(InvoiceRecord.created_at.desc()).all()
-    return [InvoiceResponse.model_validate(r) for r in rows]
+    return [InvoiceResponse.model_validate(i) for i in rows]
 
 
 @router.get("/{invoice_id}/")
@@ -259,53 +248,6 @@ def delete_invoice(
     db.commit()
 
 
-@router.post("/{invoice_id}/upload_document/")
-async def upload_document(
-    invoice_id: int,
-    document: UploadFile = File(...),
-    company=Depends(get_current_company),
-    db: Session = Depends(get_db),
-):
-    """Stocke le fichier original (PDF/image) pour révision visuelle."""
-    inv = db.query(InvoiceRecord).filter(
-        InvoiceRecord.id == invoice_id,
-        InvoiceRecord.company_id == company.id,
-    ).first()
-    if not inv:
-        raise HTTPException(404)
-
-    dest_dir = os.path.join(MEDIA_ROOT, "documents")
-    os.makedirs(dest_dir, exist_ok=True)
-    ext = os.path.splitext(document.filename)[1].lower() or ".pdf"
-    dest = os.path.join(dest_dir, f"{invoice_id}_{inv.content_hash[:8]}{ext}")
-
-    with open(dest, "wb") as f:
-        f.write(await document.read())
-
-    inv.document_file = dest
-    db.commit()
-    return {"document_url": f"/api/invoices/{invoice_id}/document/"}
-
-
-@router.get("/{invoice_id}/document/")
-def get_document(
-    invoice_id: int,
-    company=Depends(get_current_company),
-    db: Session = Depends(get_db),
-):
-    """Sert le fichier original pour affichage dans le navigateur."""
-    inv = db.query(InvoiceRecord).filter(
-        InvoiceRecord.id == invoice_id,
-        InvoiceRecord.company_id == company.id,
-    ).first()
-    if not inv or not getattr(inv, "document_file", None) or not os.path.exists(inv.document_file):
-        raise HTTPException(404)
-    ext = os.path.splitext(inv.document_file)[1].lower()
-    media_types = {".pdf": "application/pdf", ".png": "image/png",
-                   ".jpg": "image/jpeg", ".jpeg": "image/jpeg"}
-    return FileResponse(inv.document_file, media_type=media_types.get(ext, "application/octet-stream"))
-
-
 @router.post("/{invoice_id}/upload_excel/")
 async def upload_excel(
     invoice_id: int,
@@ -332,6 +274,55 @@ async def upload_excel(
     return {"excel_url": f"/api/invoices/{invoice_id}/excel/"}
 
 
+@router.post("/{invoice_id}/upload_document/")
+async def upload_document(
+    invoice_id: int,
+    document: UploadFile = File(...),
+    company=Depends(get_current_company),
+    db: Session = Depends(get_db),
+):
+    inv = db.query(InvoiceRecord).filter(
+        InvoiceRecord.id == invoice_id,
+        InvoiceRecord.company_id == company.id,
+    ).first()
+    if not inv:
+        raise HTTPException(404)
+
+    dest_dir = os.path.join(MEDIA_ROOT, "documents")
+    os.makedirs(dest_dir, exist_ok=True)
+    dest = os.path.join(dest_dir, f"{invoice_id}_{document.filename}")
+
+    with open(dest, "wb") as f:
+        f.write(await document.read())
+
+    inv.document_file = dest
+    db.commit()
+    return {"document_url": f"/api/invoices/{invoice_id}/document/"}
+
+
+@router.get("/{invoice_id}/document/")
+def download_document(
+    invoice_id: int,
+    company=Depends(get_current_company),
+    db: Session = Depends(get_db),
+):
+    inv = db.query(InvoiceRecord).filter(
+        InvoiceRecord.id == invoice_id,
+        InvoiceRecord.company_id == company.id,
+    ).first()
+    if not inv or not inv.document_file or not os.path.exists(inv.document_file):
+        raise HTTPException(404)
+    ext = os.path.splitext(inv.document_file)[1].lower()
+    mime = {
+        ".pdf":  "application/pdf",
+        ".png":  "image/png",
+        ".jpg":  "image/jpeg",
+        ".jpeg": "image/jpeg",
+    }.get(ext, "application/octet-stream")
+    return FileResponse(inv.document_file, media_type=mime,
+                        filename=os.path.basename(inv.document_file))
+
+
 @router.get("/{invoice_id}/excel/")
 def download_excel(
     invoice_id: int,
@@ -344,6 +335,8 @@ def download_excel(
     ).first()
     if not inv or not inv.excel_file or not os.path.exists(inv.excel_file):
         raise HTTPException(404)
-    return FileResponse(inv.excel_file, media_type=
-        "application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-        filename=os.path.basename(inv.excel_file))
+    return FileResponse(
+        inv.excel_file,
+        media_type="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+        filename=os.path.basename(inv.excel_file),
+    )

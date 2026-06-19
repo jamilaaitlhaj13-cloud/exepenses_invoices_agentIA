@@ -269,9 +269,8 @@ for idx, uploaded in enumerate(uploaded_files):
 
     if db_result["ok"]:
         invoice_id = db_result["data"].get("id")
-        # Stocker le fichier original pour révision visuelle (need_review uniquement)
-        if status_val == "need_review":
-            upload_document(invoice_id, file_bytes, uploaded.name)
+        # Stocker le fichier original pour révision visuelle
+        upload_document(invoice_id, file_bytes, uploaded.name)
 
         if exported:
             excel_path = exported[0]

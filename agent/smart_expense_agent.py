@@ -49,9 +49,7 @@ class SmartExpenseAgent:
         self.exporter        = ExportTool()
         self.dataset_builder = DatasetBuilderTool()
 
-    # ═══════════════════════════════════════════════════════
     # MAIN LOOP
-    # ═══════════════════════════════════════════════════════
 
     def run(self) -> None:
         """Run the agent in continuous mode (production)."""
@@ -74,9 +72,7 @@ class SmartExpenseAgent:
             )
             time.sleep(CYCLE_INTERVAL_MINUTES * 60)
 
-    # ═══════════════════════════════════════════════════════
     # CYCLE
-    # ═══════════════════════════════════════════════════════
 
     def run_cycle(self) -> dict:
         """Run a single processing cycle."""
@@ -147,9 +143,7 @@ class SmartExpenseAgent:
 
         return summary
 
-    # ═══════════════════════════════════════════════════════
     # SINGLE FILE PROCESSING
-    # ═══════════════════════════════════════════════════════
 
     def _process(self, file_path: Path) -> Invoice | None:
         """
@@ -168,9 +162,7 @@ class SmartExpenseAgent:
         invoice.attempt_count = 0
         last_errors = []
 
-        # ═══════════════════════════════════════════════════
         # STEP 1: DiT visual verification (ONCE)
-        # ═══════════════════════════════════════════════════
         try:
             is_invoice, dit_score, confidence = self.doc_verifier.verify(file_path)
             invoice.dit_confidence = dit_score
@@ -189,8 +181,6 @@ class SmartExpenseAgent:
             self.exporter.move_to_need_review(file_path)
             return None
 
-        # Rejet DiT — en dehors du try pour éviter que mark_as_rejected
-        # (sans contexte email) ne masque le résultat
         if not invoice.dit_is_invoice:
             try:
                 self.mail_fetcher.mark_as_rejected(file_path)
@@ -203,9 +193,7 @@ class SmartExpenseAgent:
             f"(score={dit_score:.3f}, confidence={confidence})"
         )
 
-        # ═══════════════════════════════════════════════════
         # STEP 2: OCR + Classification + Validation (with intelligent retry)
-        # ═══════════════════════════════════════════════════
 
         # Pre-load the image ONCE for all retry attempts
         base_image = self.enhancer.load_image(file_path)
@@ -226,20 +214,20 @@ class SmartExpenseAgent:
                 # Update source file to enhanced version
                 invoice.source_file = enhanced_path
 
-                # ── OCR ───────────────────────────────────
+                # ── OCR 
                 self.ocr.extract(invoice)
 
-                # ── Classification ────────────────────────
+                # ── Classification 
                 self.classifier.classify(invoice)
 
-                # ── Validation ────────────────────────────
+                # ── Validation 
                 result = self.validator.validate(invoice)
 
                 if not result.is_valid:
                     last_errors = result.errors
                     raise ValueError(f"Validation failed: {result.errors}")
 
-                # ── SUCCESS ────────────────────────────────
+                # ── SUCCESS 
                 logger.info(
                     f"  Success ({attempt}/{MAX_RETRY_ATTEMPTS}): "
                     f"{invoice.vendor_name} → "
@@ -266,7 +254,7 @@ class SmartExpenseAgent:
                 if was_enhanced:
                     self.enhancer.cleanup(enhanced_path)
 
-            # ── Prepare for next attempt ──────────────────
+            # ── Prepare for next attempt 
             if attempt < MAX_RETRY_ATTEMPTS:
                 # Reset invoice but keep DiT scores and source_file
                 invoice = Invoice(source_file=file_path)
@@ -280,9 +268,9 @@ class SmartExpenseAgent:
                 logger.info(f"  Retry in {wait}s with enhanced image...")
                 time.sleep(wait)
 
-        # ═══════════════════════════════════════════════════
+        
         # DEFINITIVE FAILURE
-        # ═══════════════════════════════════════════════════
+        
         logger.error(
             f"Definitive failure after {MAX_RETRY_ATTEMPTS} attempts: {file_path.name}"
         )
@@ -294,6 +282,6 @@ class SmartExpenseAgent:
                 errors=last_errors or ["Unknown error"],
             )
         except Exception:
-            pass  # no email context in upload mode
+            pass  
 
         return None

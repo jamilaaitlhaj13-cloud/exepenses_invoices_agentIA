@@ -53,7 +53,6 @@ def main():
     )
     args = parser.parse_args()
 
-    # Import here → avoids loading models if --help
     from agent.smart_expense_agent import SmartExpenseAgent
     agent = SmartExpenseAgent()
 

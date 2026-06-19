@@ -54,8 +54,8 @@ class ValidationResult:
         Returns a human-readable summary of the validation result.
         """
         if self.is_valid and not self.warnings:
-            return "✅ Validation passed — no issues"
+            return "Validation passed — no issues"
         elif self.is_valid:
-            return f"✅ Validation passed — {len(self.warnings)} warning(s)"
+            return f"Validation passed — {len(self.warnings)} warning(s)"
         else:
-            return f"❌ Validation failed — {len(self.errors)} error(s), {len(self.warnings)} warning(s)"
+            return f"Validation failed — {len(self.errors)} error(s), {len(self.warnings)} warning(s)"
