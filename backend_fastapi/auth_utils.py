@@ -11,8 +11,8 @@ from models import Company
 
 SECRET_KEY      = os.getenv("SECRET_KEY", "fastapi-secret-key-change-in-production")
 ALGORITHM       = "HS256"
-ACCESS_EXPIRE   = 60 * 8      # 8 heures
-REFRESH_EXPIRE  = 60 * 24 * 30  # 30 jours
+ACCESS_EXPIRE   = 60 * 8      # 8 hours
+REFRESH_EXPIRE  = 60 * 24 * 30  # 30 days
 
 bearer = HTTPBearer()
 

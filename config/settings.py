@@ -10,7 +10,7 @@ def _require(key: str) -> str:
     value = os.getenv(key)
     if not value:
         raise EnvironmentError(
-            f"Variable manquante dans .env : '{key}'"
+            f"Missing variable in .env: '{key}'"
         )
     return value
 

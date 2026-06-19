@@ -1,11 +1,11 @@
 """
 utils/session.py
-Gestion de la session persistante via cookies navigateur.
-Les tokens JWT sont stockés en cookie HttpOnly-like (côté client via extra-streamlit-components).
+Persistent session management via browser cookies.
+JWT tokens are stored client-side using extra-streamlit-components.
 """
 import streamlit as st
 
-# Durée de vie du cookie : 30 jours (en secondes)
+# Cookie lifetime: 30 days
 COOKIE_EXPIRY_DAYS = 30
 
 _COOKIE_KEYS = {
@@ -17,10 +17,10 @@ _COOKIE_KEYS = {
 
 
 def _get_cookie_manager():
-    """Retourne le CookieManager (singleton dans la session Streamlit)."""
+    """Returns the CookieManager (singleton within the Streamlit session)."""
     try:
         import extra_streamlit_components as stx
-        # key fixe = un seul manager pour toute l'app
+        # fixed key = single manager for the entire app
         return stx.CookieManager(key="sea_cookie_mgr")
     except Exception:
         return None
@@ -28,10 +28,10 @@ def _get_cookie_manager():
 
 def restore_session() -> bool:
     """
-    Lit les cookies du navigateur et recharge la session si les tokens existent.
-    Retourne True si la session a été restaurée.
+    Reads browser cookies and restores the session if tokens exist.
+    Returns True if the session was successfully restored.
     """
-    # Si déjà connecté en session → rien à faire
+    # Already authenticated in session state — nothing to do
     if st.session_state.get("access_token"):
         return True
 
@@ -58,8 +58,8 @@ def restore_session() -> bool:
 
 def save_session_cookies(data: dict):
     """
-    Sauvegarde les données de session dans les cookies ET dans st.session_state.
-    Appelé après login ou register réussi.
+    Saves session data to cookies AND to st.session_state.
+    Called after a successful login or registration.
     """
     st.session_state["access_token"]  = data.get("access", "")
     st.session_state["refresh_token"] = data.get("refresh", "")
@@ -81,7 +81,7 @@ def save_session_cookies(data: dict):
 
 
 def clear_session_cookies():
-    """Supprime tous les cookies de session et vide st.session_state."""
+    """Deletes all session cookies and clears st.session_state."""
     for key in ["access_token", "refresh_token", "company_name", "company_id"]:
         st.session_state.pop(key, None)
 

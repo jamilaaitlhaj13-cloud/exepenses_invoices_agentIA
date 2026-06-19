@@ -319,7 +319,7 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                 STATE["failed"]    += failed
                 STATE["current_file"] = ""
 
-                # System Handling Rate — mis à jour après chaque cycle
+                # System Handling Rate — updated after each cycle
                 _total = STATE["total"]
                 _rate  = round(STATE["validated"] / _total * 100, 1) if _total > 0 else 0.0
 

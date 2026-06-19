@@ -12,7 +12,7 @@ class RegisterRequest(BaseModel):
     company_name: str
     industry:     str = "other"
     phone:        str = ""
-    country:      str = "Maroc"
+    country:      str = "Morocco"
     city:         str = ""
     rc_number:    str = ""
 

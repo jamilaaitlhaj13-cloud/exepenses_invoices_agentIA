@@ -41,7 +41,7 @@ def register(data: RegisterRequest, db: Session = Depends(get_db)):
     db.commit()
     db.refresh(company)
     return {
-        "message":      "Compte cree avec succes.",
+        "message":      "Account created successfully.",
         "company_name": company.company_name,
         "company_id":   company.id,
         "access":       create_access_token(company.id),
@@ -53,7 +53,7 @@ def register(data: RegisterRequest, db: Session = Depends(get_db)):
 def login(data: LoginRequest, db: Session = Depends(get_db)):
     company = db.query(Company).filter(Company.email == data.email.lower()).first()
     if not company or not verify_password(data.password, company.hashed_password):
-        raise HTTPException(401, detail={"error": "Email ou mot de passe incorrect."})
+        raise HTTPException(401, detail={"error": "Invalid email or password."})
     return {
         "company_name": company.company_name,
         "company_id":   company.id,

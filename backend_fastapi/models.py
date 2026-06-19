@@ -10,16 +10,16 @@ INDUSTRY_CHOICES = [
 ]
 
 INDUSTRY_LABELS = {
-    "tech": "Technologie / IT",
-    "finance": "Finance & Banque",
-    "healthcare": "Sante",
-    "retail": "Commerce & Distribution",
-    "manufacturing": "Industrie & Production",
-    "consulting": "Conseil & Services",
-    "education": "Education",
-    "real_estate": "Immobilier",
-    "transport": "Transport & Logistique",
-    "other": "Autre",
+    "tech":          "Technology / IT",
+    "finance":       "Finance & Banking",
+    "healthcare":    "Healthcare",
+    "retail":        "Retail & Distribution",
+    "manufacturing": "Manufacturing",
+    "consulting":    "Consulting & Services",
+    "education":     "Education",
+    "real_estate":   "Real Estate",
+    "transport":     "Transport & Logistics",
+    "other":         "Other",
 }
 
 class Company(Base):

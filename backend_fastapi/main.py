@@ -10,7 +10,7 @@ Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
     title="SmartExpenseAgent API",
-    description="API de gestion des factures et dépenses — propulsée par DiT + Azure AI + LangChain",
+    description="Invoice and expense management API — powered by DiT + Azure AI + LangChain",
     version="1.0.0",
 )
 

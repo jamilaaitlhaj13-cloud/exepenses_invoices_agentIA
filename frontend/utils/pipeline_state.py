@@ -1,7 +1,7 @@
 """
-État partagé du pipeline — module singleton.
-Importé (pas exécuté comme script), donc préservé entre les reruns Streamlit.
-Le thread et la page UI lisent/écrivent dans ce même objet en mémoire.
+Shared pipeline state — singleton module.
+Imported (not run as a script), so preserved across Streamlit reruns.
+The background thread and the UI page both read/write this same in-memory object.
 """
 import threading
 from datetime import datetime
@@ -14,12 +14,12 @@ STATE = {
     "cycles":       0,
     "total":        0,
     "validated":    0,
-    "rejected":     0,   # rejetés par DiT (non-factures)
+    "rejected":     0,   # rejected by DiT (non-invoices)
     "failed":       0,
     "current_file": "",
-    "events":       [],   # liste de strings, les plus récents en premier
-    "auth_message": "",  # message device flow Microsoft
-    "last_error":    "",  # dernier traceback complet
+    "events":       [],   # list of strings, most recent first
+    "auth_message": "",  # Microsoft device flow message
+    "last_error":    "",  # last full traceback
 }
 
 
@@ -33,7 +33,7 @@ def add_event(icon: str, message: str):
 
 
 def reset(interval_minutes: int = 5, stop_evt: threading.Event = None):
-    """Réinitialise l'état avant un nouveau lancement."""
+    """Resets the state before a new pipeline run."""
     with _lock:
         STATE["running"]      = True
         STATE["stop_evt"]     = stop_evt or threading.Event()
