@@ -68,4 +68,5 @@ class InvoiceRecord(Base):
     source              = Column(String(20), default="upload")
     content_hash        = Column(String(32), default="")
     excel_file          = Column(String(500), default="")
+    document_file       = Column(String(500), default="")
     created_at          = Column(DateTime, default=datetime.utcnow)

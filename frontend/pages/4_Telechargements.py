@@ -27,6 +27,7 @@ with st.sidebar:
     st.page_link("pages/2_Upload.py",          label="Upload Invoice")
     st.page_link("pages/3_Pipeline.py",        label="Run Pipeline")
     st.page_link("pages/4_Telechargements.py", label="Downloads")
+    st.page_link("pages/5_Review.py",          label="Document Review")
     st.markdown("---")
     if st.button("Sign Out", use_container_width=True):
         logout()
@@ -89,6 +90,17 @@ with_excel  = sum(1 for inv in invoices if inv.get("excel_file"))
 st.markdown(f"**{total_shown}** invoice(s) found — **{with_excel}** with Excel report")
 st.markdown("---")
 
+PAGE_SIZE = 10
+if "dl_page" not in st.session_state:
+    st.session_state.dl_page = 1
+
+filter_key = f"{filter_status}_{filter_category}_{filter_source}"
+if st.session_state.get("_dl_filter_key") != filter_key:
+    st.session_state.dl_page = 1
+    st.session_state["_dl_filter_key"] = filter_key
+
+visible_invoices = invoices[: st.session_state.dl_page * PAGE_SIZE]
+
 STATUS_LABEL = {
     "validated":   "Validated",
     "rejected":    "Rejected",
@@ -96,7 +108,7 @@ STATUS_LABEL = {
     "processing":  "Processing",
 }
 
-for inv in invoices:
+for inv in visible_invoices:
     inv_id     = inv.get("id")
     vendor     = inv.get("vendor_name") or "Unknown vendor"
     date       = inv.get("invoice_date") or "-"
@@ -144,6 +156,17 @@ for inv in invoices:
                     st.error("Unable to download the file.")
         else:
             st.caption("No Excel report available for this invoice.")
+
+if st.session_state.dl_page * PAGE_SIZE < total_shown:
+    remaining = total_shown - st.session_state.dl_page * PAGE_SIZE
+    st.markdown("---")
+    col_more, col_info = st.columns([1, 3])
+    with col_more:
+        if st.button(f"Show more ({remaining} remaining)", use_container_width=True):
+            st.session_state.dl_page += 1
+            st.rerun()
+    with col_info:
+        st.caption(f"Showing {min(st.session_state.dl_page * PAGE_SIZE, total_shown)} of {total_shown} invoices")
 
 st.markdown("---")
 

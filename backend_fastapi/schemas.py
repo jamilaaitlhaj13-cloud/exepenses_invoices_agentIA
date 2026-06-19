@@ -101,6 +101,7 @@ class InvoiceResponse(BaseModel):
     source:              str
     content_hash:        str
     excel_file:          str
+    document_file:       Optional[str] = ""
     created_at:          datetime
 
     class Config:

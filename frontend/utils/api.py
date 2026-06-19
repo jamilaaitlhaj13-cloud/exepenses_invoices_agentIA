@@ -147,6 +147,28 @@ def upload_excel(invoice_id: int, excel_bytes: bytes, filename: str) -> dict:
     return {"ok": r.ok, "data": data}
 
 
+def upload_document(invoice_id: int, file_bytes: bytes, filename: str) -> dict:
+    ext = filename.rsplit(".", 1)[-1].lower() if "." in filename else "pdf"
+    mime = {"pdf": "application/pdf", "png": "image/png",
+            "jpg": "image/jpeg", "jpeg": "image/jpeg"}.get(ext, "application/octet-stream")
+    r = requests.post(
+        f"{BASE_URL}/invoices/{invoice_id}/upload_document/",
+        headers=_headers_no_ct(),
+        files={"document": (filename, file_bytes, mime)},
+        timeout=30,
+    )
+    return {"ok": r.ok, "data": r.json() if r.ok else {}}
+
+
+def get_document_url(invoice_id: int) -> str:
+    return f"{BASE_URL}/invoices/{invoice_id}/document/"
+
+
+def get_to_review() -> list:
+    r = requests.get(f"{BASE_URL}/invoices/to_review/", headers=_headers(), timeout=15)
+    return r.json() if r.ok else []
+
+
 def download_excel(invoice_id: int) -> bytes | None:
     r = requests.get(
         f"{BASE_URL}/invoices/{invoice_id}/excel/",

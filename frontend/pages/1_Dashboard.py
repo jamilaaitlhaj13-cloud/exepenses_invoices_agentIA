@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 st.set_page_config(page_title="Dashboard", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
-from utils.api import is_logged_in, get_stats, get_dit_scores, get_timeline, logout
+from utils.api import is_logged_in, get_stats, get_dit_scores, get_timeline, list_invoices, logout
 from utils.session import restore_session
 
 restore_session()
@@ -27,6 +27,7 @@ with st.sidebar:
     st.page_link("pages/2_Upload.py",          label="Upload Invoice")
     st.page_link("pages/3_Pipeline.py",        label="Run Pipeline")
     st.page_link("pages/4_Telechargements.py", label="Downloads")
+    st.page_link("pages/5_Review.py",          label="Document Review")
     st.markdown("---")
     if st.button("Sign Out", use_container_width=True):
         logout()
@@ -56,8 +57,8 @@ total       = stats.get("total", 0)
 validated   = stats.get("validated", 0)
 rejected    = stats.get("rejected", 0)
 need_review = stats.get("need_review", 0)
-total_amt   = stats.get("total_amount", 0.0)
 by_category = stats.get("by_category", [])
+top_vendors = stats.get("top_vendors", [])
 recent      = stats.get("recent", [])
 
 # ── KPI Cards ─────────────────────────────────────────────────────────────────
@@ -66,20 +67,11 @@ recent      = stats.get("recent", [])
 handled      = validated + need_review + rejected
 success_rate = round(handled / total * 100) if total else 0
 
-col1, col2, col3, col4, col5 = st.columns(5)
-col1.metric("Total Processed",  total)
-col2.metric("Validated",        validated)
-col3.metric("Rejected (DiT)",   rejected)
-col4.metric("Needs Review",     need_review)
-col5.metric("Validated Amount", f"{total_amt:,.2f} MAD")
-
-st.markdown(
-    f"**System handling rate: {success_rate}%** — "
-    f"{handled}/{total} documents correctly routed "
-    f"(validated, flagged for review, or identified as non-invoices).",
-    help="A document sent to manual review is still a system success — "
-         "the pipeline correctly identified it as an invoice and escalated it."
-)
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Total Processed", total)
+col2.metric("Validated",       validated)
+col3.metric("Rejected (DiT)",  rejected)
+col4.metric("Needs Review",    need_review)
 
 st.markdown("---")
 
@@ -204,19 +196,14 @@ col_cat, col_pie = st.columns([3, 2])
 
 with col_cat:
     st.subheader("Expense Categories — Detail")
-    st.caption("Validated invoices only — amounts in MAD.")
+    st.caption("Validated invoices only.")
 
     if by_category:
         df_cat = pd.DataFrame(by_category)
         df_cat.columns = ["Category", "Count", "Amount"]
-        df_cat["Amount"] = df_cat["Amount"].astype(float).fillna(0)
-        df_cat["Avg per Invoice"] = (df_cat["Amount"] / df_cat["Count"]).round(2)
-        df_cat["% of Total"] = (df_cat["Amount"] / df_cat["Amount"].sum() * 100).round(1).astype(str) + "%"
-        df_cat["Amount"] = df_cat["Amount"].map(lambda x: f"{x:,.2f}")
-        df_cat["Avg per Invoice"] = df_cat["Avg per Invoice"].map(lambda x: f"{x:,.2f}")
         df_cat = df_cat.sort_values("Count", ascending=False).reset_index(drop=True)
         st.dataframe(
-            df_cat[["Category", "Count", "Amount", "Avg per Invoice", "% of Total"]],
+            df_cat[["Category", "Count"]],
             use_container_width=True,
             hide_index=True,
         )
@@ -253,25 +240,106 @@ with col_pie:
 
 st.markdown("---")
 
-# ── 4. Recent Invoices ────────────────────────────────────────────────────────
-st.subheader("Recent Invoices")
+# ── 4. Top Vendors ────────────────────────────────────────────────────────────
+st.subheader("Top Vendors")
+st.caption("Most frequent suppliers in validated invoices.")
+
+if top_vendors:
+    df_vendors = pd.DataFrame(top_vendors)
+    df_vendors.columns = ["Vendor", "Count"]
+    df_vendors = df_vendors.sort_values("Count", ascending=True)
+    fig_vendors = px.bar(
+        df_vendors, x="Count", y="Vendor", orientation="h",
+        labels={"Count": "Number of invoices", "Vendor": ""},
+        color="Count",
+        color_continuous_scale=["#3498db", "#2ecc71"],
+    )
+    fig_vendors.update_layout(
+        plot_bgcolor="rgba(0,0,0,0)",
+        paper_bgcolor="rgba(0,0,0,0)",
+        height=350,
+        coloraxis_showscale=False,
+        margin=dict(l=10, r=10, t=10, b=10),
+        xaxis=dict(tickformat="d"),
+    )
+    st.plotly_chart(fig_vendors, use_container_width=True)
+else:
+    st.info("No validated invoices yet.")
+
+st.markdown("---")
+
+# ── 5. Recent Invoices ────────────────────────────────────────────────────────
+col_recent_title, col_download_btn = st.columns([4, 1])
+with col_recent_title:
+    st.subheader("Recent Invoices")
+    st.caption("Last 5 processed. Download below for the full list.")
+
+# Colonnes identiques aux fichiers Excel par catégorie
+EXPORT_COLS = [
+    "invoice_id", "vendor_name", "invoice_date", "subtotal",
+    "tax_amount", "total_amount", "currency", "expense_category",
+    "llm_confidence", "dit_confidence", "source_filename", "source",
+    "status", "validation_errors", "validation_warnings", "created_at",
+]
+EXPORT_RENAME = {
+    "invoice_id":           "Invoice ID",
+    "vendor_name":          "Vendor",
+    "invoice_date":         "Invoice Date",
+    "subtotal":             "Subtotal",
+    "tax_amount":           "Tax",
+    "total_amount":         "Total",
+    "currency":             "Currency",
+    "expense_category":     "Category",
+    "llm_confidence":       "LLM Confidence",
+    "dit_confidence":       "DiT Score",
+    "source_filename":      "File",
+    "source":               "Source",
+    "status":               "Status",
+    "validation_errors":    "Validation Errors",
+    "validation_warnings":  "Validation Warnings",
+    "created_at":           "Processed At",
+}
+STATUS_LABELS = {"validated": "Validated", "rejected": "Rejected", "need_review": "Needs Review"}
+
+# Colonnes résumées pour l'affichage tableau récent
+DISPLAY_COLS    = ["invoice_id", "vendor_name", "invoice_date", "total_amount", "currency", "expense_category", "status"]
+DISPLAY_RENAME  = {
+    "invoice_id":       "Invoice ID",
+    "vendor_name":      "Vendor",
+    "invoice_date":     "Invoice Date",
+    "total_amount":     "Total",
+    "currency":         "Currency",
+    "expense_category": "Category",
+    "status":           "Status",
+}
+
 if recent:
     df_recent = pd.DataFrame(recent)
-    cols_display = ["vendor_name", "invoice_date", "total_amount",
-                    "currency", "expense_category", "status", "source"]
-    df_display = df_recent[[c for c in cols_display if c in df_recent.columns]]
-    df_display = df_display.rename(columns={
-        "vendor_name":      "Vendor",
-        "invoice_date":     "Date",
-        "total_amount":     "Amount",
-        "currency":         "Currency",
-        "expense_category": "Category",
-        "status":           "Status",
-        "source":           "Source",
-    })
-    status_labels = {"validated": "Validated", "rejected": "Rejected", "need_review": "Needs Review"}
+    df_display = df_recent[[c for c in DISPLAY_COLS if c in df_recent.columns]].rename(columns=DISPLAY_RENAME)
     if "Status" in df_display.columns:
-        df_display["Status"] = df_display["Status"].map(lambda s: status_labels.get(s, s))
+        df_display["Status"] = df_display["Status"].map(lambda s: STATUS_LABELS.get(s, s))
     st.dataframe(df_display, use_container_width=True, hide_index=True)
 else:
     st.info("No invoices processed yet. Use **Upload Invoice** or **Run Pipeline** to get started!")
+
+# Bouton export CSV — toutes les factures avec les mêmes colonnes que les Excel
+with col_download_btn:
+    st.markdown("<br><br>", unsafe_allow_html=True)
+    if st.button("Export all (CSV)", use_container_width=True):
+        with st.spinner("Loading all invoices..."):
+            all_invoices = list_invoices()
+        if all_invoices:
+            df_all = pd.DataFrame(all_invoices)
+            df_all = df_all[[c for c in EXPORT_COLS if c in df_all.columns]].rename(columns=EXPORT_RENAME)
+            if "Status" in df_all.columns:
+                df_all["Status"] = df_all["Status"].map(lambda s: STATUS_LABELS.get(s, s))
+            csv = df_all.to_csv(index=False).encode("utf-8")
+            st.download_button(
+                label=f"Download CSV ({len(df_all)} invoices)",
+                data=csv,
+                file_name="all_invoices.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+        else:
+            st.warning("No invoices found.")

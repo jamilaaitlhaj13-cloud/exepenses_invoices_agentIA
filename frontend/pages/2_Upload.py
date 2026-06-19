@@ -10,7 +10,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 st.set_page_config(page_title="Upload Invoice", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
-from utils.api import is_logged_in, save_invoice, upload_excel, logout, check_invoice_hash
+from utils.api import is_logged_in, save_invoice, upload_excel, upload_document, logout, check_invoice_hash
 from utils.session import restore_session
 
 restore_session()
@@ -25,6 +25,7 @@ with st.sidebar:
     st.page_link("pages/2_Upload.py",          label="Upload Invoice")
     st.page_link("pages/3_Pipeline.py",        label="Run Pipeline")
     st.page_link("pages/4_Telechargements.py", label="Downloads")
+    st.page_link("pages/5_Review.py",          label="Document Review")
     st.markdown("---")
     if st.button("Sign Out", use_container_width=True):
         logout()
@@ -158,7 +159,6 @@ for idx, uploaded in enumerate(uploaded_files):
     # Individual result display
     if not invoice:
         st.warning("This invoice could not be processed automatically and has been sent for manual review.")
-        # Notify accountant if MS token available
         if agent:
             try:
                 sent = agent.mail_fetcher.notify_accountant(
@@ -171,7 +171,7 @@ for idx, uploaded in enumerate(uploaded_files):
                     st.caption("(Accountant email not sent — Microsoft not authenticated)")
             except Exception:
                 pass
-        save_invoice({
+        db_result = save_invoice({
             "vendor_name": "", "invoice_date": "", "invoice_id": "",
             "total_amount": None, "subtotal": None, "tax_amount": None,
             "currency": "MAD", "expense_category": "Other",
@@ -182,12 +182,14 @@ for idx, uploaded in enumerate(uploaded_files):
             "source_filename": uploaded.name, "source": "upload",
             "content_hash": content_hash,
         })
+        if db_result["ok"]:
+            upload_document(db_result["data"]["id"], file_bytes, uploaded.name)
         results.append((uploaded.name, "failed", None, [], content_hash))
         continue
 
     if not invoice.dit_is_invoice:
         st.error(f"This document is not an invoice — rejected by DiT (score={invoice.dit_confidence:.3f}).")
-        save_invoice({
+        db_result = save_invoice({
             "vendor_name": "", "invoice_date": "", "invoice_id": "",
             "total_amount": None, "subtotal": None, "tax_amount": None,
             "currency": "MAD", "expense_category": "Other",
@@ -200,6 +202,8 @@ for idx, uploaded in enumerate(uploaded_files):
             "source_filename": uploaded.name, "source": "upload",
             "content_hash": content_hash,
         })
+        if db_result["ok"]:
+            upload_document(db_result["data"]["id"], file_bytes, uploaded.name)
         results.append((uploaded.name, "rejected", invoice, [], content_hash))
         continue
 
@@ -263,20 +267,25 @@ for idx, uploaded in enumerate(uploaded_files):
     }
     db_result = save_invoice(invoice_data)
 
-    if db_result["ok"] and exported:
+    if db_result["ok"]:
         invoice_id = db_result["data"].get("id")
-        excel_path = exported[0]
-        with open(excel_path, "rb") as f:
-            excel_bytes = f.read()
-        up = upload_excel(invoice_id, excel_bytes, os.path.basename(excel_path))
-        if up["ok"]:
-            st.download_button(
-                label=f"Download Excel Report — {uploaded.name}",
-                data=excel_bytes,
-                file_name=os.path.basename(excel_path),
-                mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
-                key=f"dl_{idx}",
-            )
+        # Stocker le fichier original pour révision visuelle (need_review uniquement)
+        if status_val == "need_review":
+            upload_document(invoice_id, file_bytes, uploaded.name)
+
+        if exported:
+            excel_path = exported[0]
+            with open(excel_path, "rb") as f:
+                excel_bytes = f.read()
+            up = upload_excel(invoice_id, excel_bytes, os.path.basename(excel_path))
+            if up["ok"]:
+                st.download_button(
+                    label=f"Download Excel Report — {uploaded.name}",
+                    data=excel_bytes,
+                    file_name=os.path.basename(excel_path),
+                    mime="application/vnd.openxmlformats-officedocument.spreadsheetml.sheet",
+                    key=f"dl_{idx}",
+                )
 
     results.append((uploaded.name, status_val, invoice, exported, content_hash))
 
