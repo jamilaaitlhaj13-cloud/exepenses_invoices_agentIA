@@ -56,10 +56,10 @@ class OCRExtractionTool:
             timeout=15,
         )
         if _check.status_code == 403:
-            _msg = _check.json().get("error", {}).get("message", "Quota épuisé")
-            raise RuntimeError(f"Azure quota épuisé (403): {_msg}")
+            _msg = _check.json().get("error", {}).get("message", "Quota exceeded")
+            raise RuntimeError(f"Azure quota exceeded (403): {_msg}")
         if _check.status_code == 401:
-            raise RuntimeError("Clé Azure invalide ou expirée (401)")
+            raise RuntimeError("Invalid or expired Azure key (401)")
 
         try:
             with open(file_path, "rb") as f:

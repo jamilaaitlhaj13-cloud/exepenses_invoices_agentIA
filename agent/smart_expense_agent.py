@@ -98,7 +98,7 @@ class SmartExpenseAgent:
             if invoice and invoice.dit_is_invoice:
                 validated.append(invoice)
             elif invoice and not invoice.dit_is_invoice:
-                # Rejet DiT haute confiance — loggé en DB par l'appelant
+                # High-confidence DiT rejection — logged to DB by the caller
                 rejected.append(invoice)
             else:
                 failed += 1
@@ -185,7 +185,7 @@ class SmartExpenseAgent:
             try:
                 self.mail_fetcher.mark_as_rejected(file_path)
             except Exception:
-                pass  # contexte upload : pas d'email à marquer
+                pass  # upload context: no email to mark as read
             return invoice
 
         logger.info(

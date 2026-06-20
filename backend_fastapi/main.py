@@ -5,7 +5,7 @@ from fastapi.middleware.cors import CORSMiddleware
 from database import engine, Base
 from routers import auth, invoices
 
-# Créer les tables si elles n'existent pas
+# Create tables if they don't exist
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(
@@ -14,7 +14,7 @@ app = FastAPI(
     version="1.0.0",
 )
 
-# CORS — ajuster les origines selon l'environnement
+# CORS — adjust origins as needed for your environment
 app.add_middleware(
     CORSMiddleware,
     allow_origins=["http://localhost:8501", "http://127.0.0.1:8501"],  # Streamlit frontend

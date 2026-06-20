@@ -80,7 +80,7 @@ def get_stats(
     ).filter(InvoiceRecord.company_id == company.id).group_by(InvoiceRecord.source).all()
 
     recent = [InvoiceResponse.model_validate(i)
-              for i in qs.order_by(InvoiceRecord.created_at.desc()).limit(5).all()]
+              for i in qs.order_by(InvoiceRecord.created_at.desc()).limit(10).all()]
 
     return {
         "total":        total,
@@ -105,17 +105,17 @@ def get_metrics(
     rejected    = qs.filter(InvoiceRecord.status == "rejected").count()
     need_review = qs.filter(InvoiceRecord.status == "need_review").count()
 
-    # System Handling Rate : factures validées / total traité
+    # System Handling Rate: validated / total processed
     system_handling_rate = round(validated / total * 100, 1) if total else 0.0
 
-    # Taux de filtrage DiT : % de docs rejetés visuellement
+    # DiT filter rate: % of documents visually rejected
     dit_filter_rate = round(rejected / total * 100, 1) if total else 0.0
 
-    # Taux de validation parmi les docs acceptés par DiT
+    # Validation rate among documents accepted by DiT
     accepted_by_dit = validated + need_review
     validation_rate = round(validated / accepted_by_dit * 100, 1) if accepted_by_dit else 0.0
 
-    # Taux de décision globale : docs traités sans ambiguïté
+    # Overall decision rate: documents processed without ambiguity
     decision_rate = round((validated + rejected) / total * 100, 1) if total else 0.0
 
     # Score DiT moyen par statut
@@ -131,7 +131,7 @@ def get_metrics(
         InvoiceRecord.dit_confidence.isnot(None),
     ).scalar()
 
-    # Rejets haute confiance DiT (score < 0.3 → très loin du seuil)
+    # High-confidence DiT rejections (score < 0.3 — far from threshold)
     high_conf_rejections = db.query(InvoiceRecord).filter(
         InvoiceRecord.company_id == company.id,
         InvoiceRecord.status == "rejected",
@@ -175,7 +175,7 @@ def get_timeline(
     company=Depends(get_current_company),
     db: Session = Depends(get_db),
 ):
-    """Nombre de factures traitées par jour — pour le graphique d'évolution."""
+    """Number of invoices processed per day — for the timeline chart."""
     rows = db.query(
         cast(InvoiceRecord.created_at, Date).label("day"),
         InvoiceRecord.status,
@@ -209,7 +209,7 @@ def get_to_review(
     company=Depends(get_current_company),
     db: Session = Depends(get_db),
 ):
-    """Retourne toutes les factures rejected ou need_review pour révision manuelle."""
+    """Return all rejected or need_review invoices for manual review."""
     rows = db.query(InvoiceRecord).filter(
         InvoiceRecord.company_id == company.id,
         InvoiceRecord.status.in_(["rejected", "need_review"]),

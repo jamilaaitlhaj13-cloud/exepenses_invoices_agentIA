@@ -138,7 +138,7 @@ for doc in documents:
 
             st.markdown("")
 
-            # Bouton télécharger le document original
+            # Download original document button
             try:
                 r = requests.get(
                     f"{BASE_URL}/invoices/{doc_id}/document/",

@@ -12,7 +12,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 st.set_page_config(page_title="Dashboard", layout="wide")
 st.markdown("<style>[data-testid='stSidebarNav']{display:none}</style>", unsafe_allow_html=True)
 
-from utils.api import is_logged_in, get_stats, get_dit_scores, get_timeline, logout
+from utils.api import is_logged_in, get_stats, get_dit_scores, get_timeline, list_invoices, logout
 from utils.session import restore_session
 
 restore_session()
@@ -56,22 +56,20 @@ total       = stats.get("total", 0)
 validated   = stats.get("validated", 0)
 rejected    = stats.get("rejected", 0)
 need_review = stats.get("need_review", 0)
-total_amt   = stats.get("total_amount", 0.0)
 by_category = stats.get("by_category", [])
 recent      = stats.get("recent", [])
 
 # ── KPI Cards ─────────────────────────────────────────────────────────────────
-# System Handling Rate = factures validées / total traité
+# System Handling Rate = validated / total processed
 system_handling_rate = round(validated / total * 100, 1) if total else 0.0
 
-col1, col2, col3, col4, col5 = st.columns(5)
-col1.metric("Total Processed",      total)
-col2.metric("Validated",            validated)
-col3.metric("Rejected (DiT)",       rejected)
-col4.metric("Needs Review",         need_review)
-col5.metric("Validated Amount",     f"{total_amt:,.2f} MAD")
+col1, col2, col3, col4 = st.columns(4)
+col1.metric("Total Processed",  total)
+col2.metric("Validated",        validated)
+col3.metric("Rejected (DiT)",   rejected)
+col4.metric("Needs Review",     need_review)
 
-# Bandeau System Handling Rate — recalculé automatiquement à chaque refresh
+# System Handling Rate banner — recalculated on every refresh
 _color = "#2ecc71" if system_handling_rate >= 80 else "#f39c12" if system_handling_rate >= 50 else "#e74c3c"
 st.markdown(
     f"""<div style="background:#f0f4ff; border-left:4px solid {_color};
@@ -211,19 +209,15 @@ col_cat, col_pie = st.columns([3, 2])
 
 with col_cat:
     st.subheader("Expense Categories — Detail")
-    st.caption("Validated invoices only — amounts in MAD.")
+    st.caption("Validated invoices only.")
 
     if by_category:
         df_cat = pd.DataFrame(by_category)
         df_cat.columns = ["Category", "Count", "Amount"]
-        df_cat["Amount"] = df_cat["Amount"].astype(float).fillna(0)
-        df_cat["Avg per Invoice"] = (df_cat["Amount"] / df_cat["Count"]).round(2)
-        df_cat["% of Total"] = (df_cat["Amount"] / df_cat["Amount"].sum() * 100).round(1).astype(str) + "%"
-        df_cat["Amount"] = df_cat["Amount"].map(lambda x: f"{x:,.2f}")
-        df_cat["Avg per Invoice"] = df_cat["Avg per Invoice"].map(lambda x: f"{x:,.2f}")
+        df_cat["% of Invoices"] = (df_cat["Count"] / df_cat["Count"].sum() * 100).round(1).astype(str) + "%"
         df_cat = df_cat.sort_values("Count", ascending=False).reset_index(drop=True)
         st.dataframe(
-            df_cat[["Category", "Count", "Amount", "Avg per Invoice", "% of Total"]],
+            df_cat[["Category", "Count", "% of Invoices"]],
             use_container_width=True,
             hide_index=True,
         )
@@ -261,24 +255,83 @@ with col_pie:
 st.markdown("---")
 
 # ── 4. Recent Invoices ────────────────────────────────────────────────────────
-st.subheader("Recent Invoices")
+INVOICE_COLS = {
+    # Vendor
+    "vendor_name":                 "Vendor",
+    "vendor_address":              "Vendor Address",
+    "vendor_address_recipient":    "Vendor Recipient",
+    "vendor_tax_id":               "Vendor Tax ID",
+    # Customer
+    "customer_name":               "Customer",
+    "customer_id":                 "Customer ID",
+    "customer_address":            "Customer Address",
+    "customer_address_recipient":  "Customer Recipient",
+    "customer_tax_id":             "Customer Tax ID",
+    # Invoice info
+    "invoice_id":                  "Invoice ID",
+    "purchase_order":              "Purchase Order",
+    "kvk_number":                  "KVK Number",
+    "payment_term":                "Payment Term",
+    # Dates
+    "invoice_date":                "Invoice Date",
+    "due_date":                    "Due Date",
+    "service_start_date":          "Service Start",
+    "service_end_date":            "Service End",
+    # Amounts
+    "subtotal":                    "Subtotal",
+    "total_discount":              "Discount",
+    "tax_amount":                  "Tax",
+    "total_amount":                "Total",
+    "amount_due":                  "Amount Due",
+    "previous_unpaid_balance":     "Prev. Unpaid",
+    "currency":                    "Currency",
+    # Addresses
+    "billing_address":             "Billing Address",
+    "billing_address_recipient":   "Billing Recipient",
+    "shipping_address":            "Shipping Address",
+    "shipping_address_recipient":  "Shipping Recipient",
+    "remittance_address":          "Remittance Address",
+    "remittance_address_recipient":"Remittance Recipient",
+    "service_address":             "Service Address",
+    "service_address_recipient":   "Service Recipient",
+    # Classification & metadata
+    "expense_category":            "Category",
+    "status":                      "Status",
+    "source":                      "Source",
+}
+STATUS_LABELS = {"validated": "Validated", "rejected": "Rejected", "need_review": "Needs Review"}
+
+def _build_invoice_df(records: list) -> pd.DataFrame:
+    df = pd.DataFrame([r if isinstance(r, dict) else r.model_dump() for r in records])
+    df = df[[c for c in INVOICE_COLS if c in df.columns]].rename(columns=INVOICE_COLS)
+    if "Status" in df.columns:
+        df["Status"] = df["Status"].map(lambda s: STATUS_LABELS.get(s, s))
+    return df
+
+col_recent_title, col_download = st.columns([4, 1])
+with col_recent_title:
+    st.subheader("Recent Invoices")
+    st.caption("Last 10 processed invoices.")
+with col_download:
+    st.markdown("<br>", unsafe_allow_html=True)
+    if st.button("Export All", use_container_width=True):
+        with st.spinner("Loading all invoices..."):
+            all_invoices = list_invoices()
+        if all_invoices:
+            df_all = _build_invoice_df(all_invoices)
+            csv = df_all.to_csv(index=False).encode("utf-8")
+            st.download_button(
+                label="Download CSV",
+                data=csv,
+                file_name="all_invoices.csv",
+                mime="text/csv",
+                use_container_width=True,
+            )
+        else:
+            st.warning("No invoices found.")
+
 if recent:
-    df_recent = pd.DataFrame(recent)
-    cols_display = ["vendor_name", "invoice_date", "total_amount",
-                    "currency", "expense_category", "status", "source"]
-    df_display = df_recent[[c for c in cols_display if c in df_recent.columns]]
-    df_display = df_display.rename(columns={
-        "vendor_name":      "Vendor",
-        "invoice_date":     "Date",
-        "total_amount":     "Amount",
-        "currency":         "Currency",
-        "expense_category": "Category",
-        "status":           "Status",
-        "source":           "Source",
-    })
-    status_labels = {"validated": "Validated", "rejected": "Rejected", "need_review": "Needs Review"}
-    if "Status" in df_display.columns:
-        df_display["Status"] = df_display["Status"].map(lambda s: status_labels.get(s, s))
+    df_display = _build_invoice_df(recent)
     st.dataframe(df_display, use_container_width=True, hide_index=True)
 else:
     st.info("No invoices processed yet. Use **Upload Invoice** or **Run Pipeline** to get started!")

@@ -33,7 +33,7 @@ DEFAULT_TOKEN_FILE = "ms_token.json"
 class MailFetcherTool:
     def __init__(self, token_file: str = DEFAULT_TOKEN_FILE, auth_callback=None):
         self._token_file = token_file
-        self._auth_callback = auth_callback  # appelé avec le message device flow
+        self._auth_callback = auth_callback  # called with the device flow message
         self.client = AzureOpenAI(
             api_key=os.getenv("AZURE_OPENAI_KEY"),
             api_version=os.getenv("AZURE_OPENAI_API_VERSION"),
@@ -137,9 +137,9 @@ class MailFetcherTool:
         
         #Obvious NOT INVOICE 
         obvious_non_invoice = [
-            "invitation", "meeting", "réunion", "rendez-vous",
+            "invitation", "meeting", "reunion", "rendez-vous",
             "newsletter", "happy birthday", "congratulations",
-            "out of office", "absence", "vacation", "congé"
+            "out of office", "absence", "vacation", "conge"
         ]
         has_non_invoice_subject = any(
             word in subject_lower for word in obvious_non_invoice

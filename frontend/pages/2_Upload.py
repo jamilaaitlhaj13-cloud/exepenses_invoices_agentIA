@@ -244,32 +244,66 @@ for idx, uploaded in enumerate(uploaded_files):
 
     # Save to DB
     invoice_data = {
-        "vendor_name":         invoice.vendor_name or "",
-        "invoice_date":        invoice.invoice_date or "",
-        "invoice_id":          invoice.invoice_id or "",
-        "total_amount":        str(invoice.total_amount) if invoice.total_amount else None,
-        "subtotal":            str(invoice.subtotal) if invoice.subtotal else None,
-        "tax_amount":          str(invoice.tax_amount) if invoice.tax_amount else None,
-        "currency":            invoice.currency or "MAD",
-        "expense_category":    invoice.expense_category or "Other",
-        "dit_confidence":      invoice.dit_confidence,
-        "dit_label":           invoice.dit_label or "",
-        "dit_is_invoice":      invoice.dit_is_invoice,
-        "llm_confidence":      invoice.llm_confidence or "",
-        "is_valid":            invoice.is_valid,
-        "validation_errors":   invoice.validation_errors or [],
-        "validation_warnings": invoice.validation_warnings or [],
-        "attempt_count":       invoice.attempt_count,
-        "status":              status_val,
-        "source_filename":     uploaded.name,
-        "source":              "upload",
-        "content_hash":        content_hash,
+        # Vendor
+        "vendor_name":                 invoice.vendor_name or "",
+        "vendor_address":              invoice.vendor_address or "",
+        "vendor_address_recipient":    invoice.vendor_address_recipient or "",
+        "vendor_tax_id":               invoice.vendor_tax_id or "",
+        # Customer
+        "customer_name":               invoice.customer_name or "",
+        "customer_id":                 invoice.customer_id or "",
+        "customer_address":            invoice.customer_address or "",
+        "customer_address_recipient":  invoice.customer_address_recipient or "",
+        "customer_tax_id":             invoice.customer_tax_id or "",
+        # Invoice info
+        "invoice_id":                  invoice.invoice_id or "",
+        "purchase_order":              invoice.purchase_order or "",
+        "kvk_number":                  invoice.kvk_number or "",
+        "payment_term":                invoice.payment_term or "",
+        # Dates
+        "invoice_date":                invoice.invoice_date or "",
+        "due_date":                    invoice.due_date or "",
+        "service_start_date":          invoice.service_start_date or "",
+        "service_end_date":            invoice.service_end_date or "",
+        # Amounts
+        "subtotal":                    float(invoice.subtotal) if invoice.subtotal is not None else None,
+        "total_discount":              float(invoice.total_discount) if invoice.total_discount is not None else None,
+        "tax_amount":                  float(invoice.tax_amount) if invoice.tax_amount is not None else None,
+        "total_amount":                float(invoice.total_amount) if invoice.total_amount is not None else None,
+        "amount_due":                  float(invoice.amount_due) if invoice.amount_due is not None else None,
+        "previous_unpaid_balance":     float(invoice.previous_unpaid_balance) if invoice.previous_unpaid_balance is not None else None,
+        "currency":                    invoice.currency or "MAD",
+        # Addresses
+        "billing_address":             invoice.billing_address or "",
+        "billing_address_recipient":   invoice.billing_address_recipient or "",
+        "shipping_address":            invoice.shipping_address or "",
+        "shipping_address_recipient":  invoice.shipping_address_recipient or "",
+        "remittance_address":          invoice.remittance_address or "",
+        "remittance_address_recipient":invoice.remittance_address_recipient or "",
+        "service_address":             invoice.service_address or "",
+        "service_address_recipient":   invoice.service_address_recipient or "",
+        # Classification
+        "expense_category":            invoice.expense_category or "Other",
+        # AI pipeline
+        "dit_confidence":              invoice.dit_confidence,
+        "dit_label":                   invoice.dit_label or "",
+        "dit_is_invoice":              invoice.dit_is_invoice,
+        "llm_confidence":              invoice.llm_confidence or "",
+        "is_valid":                    invoice.is_valid,
+        "validation_errors":           invoice.validation_errors or [],
+        "validation_warnings":         invoice.validation_warnings or [],
+        "attempt_count":               invoice.attempt_count,
+        # Metadata
+        "status":                      status_val,
+        "source_filename":             uploaded.name,
+        "source":                      "upload",
+        "content_hash":                content_hash,
     }
     db_result = save_invoice(invoice_data)
 
     if db_result["ok"]:
         invoice_id = db_result["data"].get("id")
-        # Stocker le fichier original pour révision visuelle
+        # Store original file for visual review
         upload_document(invoice_id, file_bytes, uploaded.name)
 
         if exported:

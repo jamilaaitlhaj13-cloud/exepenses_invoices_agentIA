@@ -25,7 +25,7 @@ def _safe_json(r) -> dict:
     try:
         return r.json()
     except Exception:
-        return {"error": f"Erreur serveur ({r.status_code}): {r.text[:300] or 'réponse vide'}"}
+        return {"error": f"Server error ({r.status_code}): {r.text[:300] or 'empty response'}"}
 
 
 def register(data: dict) -> dict:
@@ -104,7 +104,7 @@ def list_invoices(status=None, category=None, source=None) -> list:
 
 
 def check_invoice_hash(content_hash: str) -> bool:
-    """Retourne True si une facture avec ce hash MD5 a déjà été traitée."""
+    """Returns True if an invoice with this MD5 hash has already been processed."""
     try:
         r = requests.get(
             f"{BASE_URL}/invoices/check_hash/",
@@ -127,7 +127,7 @@ def save_invoice(invoice_data: dict) -> dict:
     try:
         data = r.json()
     except Exception:
-        data = {"detail": r.text[:300] or "Réponse vide du serveur"}
+        data = {"detail": r.text[:300] or "Empty server response"}
     return {"ok": r.ok, "data": data}
 
 
@@ -143,7 +143,7 @@ def upload_excel(invoice_id: int, excel_bytes: bytes, filename: str) -> dict:
     try:
         data = r.json()
     except Exception:
-        data = {"detail": r.text[:300] or "Réponse vide"}
+        data = {"detail": r.text[:300] or "Empty response"}
     return {"ok": r.ok, "data": data}
 
 

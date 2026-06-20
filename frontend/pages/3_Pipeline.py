@@ -86,26 +86,60 @@ def _save_invoice_to_django(invoice, filename: str, token: str,
     if not invoice.dit_is_invoice:
         status_val = "rejected"
     data = {
-        "vendor_name":         invoice.vendor_name or "",
-        "invoice_date":        invoice.invoice_date or "",
-        "invoice_id":          invoice.invoice_id or "",
-        "total_amount":        float(invoice.total_amount) if invoice.total_amount else None,
-        "subtotal":            float(invoice.subtotal) if invoice.subtotal else None,
-        "tax_amount":          float(invoice.tax_amount) if invoice.tax_amount else None,
-        "currency":            invoice.currency or "MAD",
-        "expense_category":    invoice.expense_category or "Other",
-        "dit_confidence":      float(invoice.dit_confidence) if invoice.dit_confidence is not None else None,
-        "dit_label":           invoice.dit_label or "",
-        "dit_is_invoice":      bool(invoice.dit_is_invoice) if invoice.dit_is_invoice is not None else False,
-        "llm_confidence":      invoice.llm_confidence or "",
-        "is_valid":            bool(invoice.is_valid) if invoice.is_valid is not None else False,
-        "validation_errors":   invoice.validation_errors or [],
-        "validation_warnings": invoice.validation_warnings or [],
-        "attempt_count":       int(invoice.attempt_count) if invoice.attempt_count else 1,
-        "status":              status_val,
-        "source_filename":     filename,
-        "source":              "email",
-        "content_hash":        content_hash,
+        # Vendor
+        "vendor_name":                 invoice.vendor_name or "",
+        "vendor_address":              invoice.vendor_address or "",
+        "vendor_address_recipient":    invoice.vendor_address_recipient or "",
+        "vendor_tax_id":               invoice.vendor_tax_id or "",
+        # Customer
+        "customer_name":               invoice.customer_name or "",
+        "customer_id":                 invoice.customer_id or "",
+        "customer_address":            invoice.customer_address or "",
+        "customer_address_recipient":  invoice.customer_address_recipient or "",
+        "customer_tax_id":             invoice.customer_tax_id or "",
+        # Invoice info
+        "invoice_id":                  invoice.invoice_id or "",
+        "purchase_order":              invoice.purchase_order or "",
+        "kvk_number":                  invoice.kvk_number or "",
+        "payment_term":                invoice.payment_term or "",
+        # Dates
+        "invoice_date":                invoice.invoice_date or "",
+        "due_date":                    invoice.due_date or "",
+        "service_start_date":          invoice.service_start_date or "",
+        "service_end_date":            invoice.service_end_date or "",
+        # Amounts
+        "subtotal":                    float(invoice.subtotal) if invoice.subtotal is not None else None,
+        "total_discount":              float(invoice.total_discount) if invoice.total_discount is not None else None,
+        "tax_amount":                  float(invoice.tax_amount) if invoice.tax_amount is not None else None,
+        "total_amount":                float(invoice.total_amount) if invoice.total_amount is not None else None,
+        "amount_due":                  float(invoice.amount_due) if invoice.amount_due is not None else None,
+        "previous_unpaid_balance":     float(invoice.previous_unpaid_balance) if invoice.previous_unpaid_balance is not None else None,
+        "currency":                    invoice.currency or "MAD",
+        # Addresses
+        "billing_address":             invoice.billing_address or "",
+        "billing_address_recipient":   invoice.billing_address_recipient or "",
+        "shipping_address":            invoice.shipping_address or "",
+        "shipping_address_recipient":  invoice.shipping_address_recipient or "",
+        "remittance_address":          invoice.remittance_address or "",
+        "remittance_address_recipient":invoice.remittance_address_recipient or "",
+        "service_address":             invoice.service_address or "",
+        "service_address_recipient":   invoice.service_address_recipient or "",
+        # Classification
+        "expense_category":            invoice.expense_category or "Other",
+        # AI pipeline
+        "dit_confidence":              float(invoice.dit_confidence) if invoice.dit_confidence is not None else None,
+        "dit_label":                   invoice.dit_label or "",
+        "dit_is_invoice":              bool(invoice.dit_is_invoice) if invoice.dit_is_invoice is not None else False,
+        "llm_confidence":              invoice.llm_confidence or "",
+        "is_valid":                    bool(invoice.is_valid) if invoice.is_valid is not None else False,
+        "validation_errors":           invoice.validation_errors or [],
+        "validation_warnings":         invoice.validation_warnings or [],
+        "attempt_count":               int(invoice.attempt_count) if invoice.attempt_count else 1,
+        # Metadata
+        "status":                      status_val,
+        "source_filename":             filename,
+        "source":                      "email",
+        "content_hash":                content_hash,
     }
     try:
         r = requests.post(
@@ -156,7 +190,7 @@ def _upload_excel_to_django(invoice_id: int, excel_path: str, token: str):
 
 
 def _upload_document_to_django(invoice_id: int, file_path: Path, token: str):
-    """Upload le fichier original pour permettre la prévisualisation dans Document Review."""
+    """Upload the original file to enable preview in Document Review."""
     try:
         ext  = file_path.suffix.lower()
         mime = {".pdf": "application/pdf", ".png": "image/png",
