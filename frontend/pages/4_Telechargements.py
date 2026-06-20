@@ -189,6 +189,14 @@ CATEGORY_LABELS = {
     "Marketing_Communication": "Marketing & Communication",
     "Legal_Compliance":        "Legal & Compliance",
     "Maintenance_Repair":      "Maintenance & Repair",
+    "Food_Catering":           "Food & Catering",
+    "Training_Education":      "Training & Education",
+    "Insurance":               "Insurance",
+    "Rent_Real_Estate":        "Rent & Real Estate",
+    "Raw_Materials_Inventory": "Raw Materials & Inventory",
+    "Healthcare_Medical":      "Healthcare & Medical",
+    "Logistics_Delivery":      "Logistics & Delivery",
+    "HR_Recruitment":          "HR & Recruitment",
     "Other":                   "Other",
 }
 

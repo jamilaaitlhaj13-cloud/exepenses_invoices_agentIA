@@ -273,6 +273,8 @@ def _run_continuous(agent, stop_event: threading.Event, interval_minutes: int, t
                         if inv_id and exported:
                             _upload_excel_to_django(inv_id, str(exported[0]), token)
                             add_event("", f"Excel available: {vendor} | {amount}")
+                        if inv_id and not invoice.is_valid and file_path.exists():
+                            _upload_document_to_django(inv_id, file_path, token)
                         agent.exporter.move_to_valid_invoices(file_path)
                         agent.exporter.cleanup_pending(file_path)
                         agent.mail_fetcher.mark_as_validated(file_path)
@@ -538,18 +540,22 @@ if run_once:
             if inv_id and exported:
                 _upload_excel_to_django(inv_id, str(exported[0]), token)
                 excel_downloads.append((exported[0], vendor))
+            if inv_id and not invoice.is_valid and file_path.exists():
+                _upload_document_to_django(inv_id, file_path, token)
             if invoice.source_file:
                 agent.exporter.move_to_valid_invoices(invoice.source_file)
                 agent.exporter.cleanup_pending(invoice.source_file)
                 agent.mail_fetcher.mark_as_validated(invoice.source_file)
         elif invoice and not invoice.dit_is_invoice:
             _register_hash(content_hash)
-            _save_invoice_to_django(invoice, file_path.name, token, content_hash=content_hash)
+            inv_id = _save_invoice_to_django(invoice, file_path.name, token, content_hash=content_hash)
+            if inv_id and file_path.exists():
+                _upload_document_to_django(inv_id, file_path, token)
             st.warning(f"`{file_path.name}` — rejected by DiT (score={invoice.dit_confidence:.3f}, high confidence)")
             failed_files.append(file_path.name)
         else:
             _register_hash(content_hash)
-            _save_invoice_to_django_raw({
+            raw_id = _save_invoice_to_django_raw({
                 "vendor_name": "", "invoice_date": "", "invoice_id": "",
                 "total_amount": None, "subtotal": None, "tax_amount": None,
                 "currency": "MAD", "expense_category": "Other",
@@ -561,6 +567,8 @@ if run_once:
                 "source_filename": file_path.name, "source": "email",
                 "content_hash": content_hash,
             }, token)
+            if raw_id and file_path.exists():
+                _upload_document_to_django(raw_id, file_path, token)
             st.error(f"`{file_path.name}` — moved to manual review")
             failed_files.append(file_path.name)
 

@@ -30,6 +30,14 @@ CATEGORY_FILENAMES = {
     "Marketing & Communication": "Marketing_Communication",
     "Legal & Compliance":        "Legal_Compliance",
     "Maintenance & Repair":      "Maintenance_Repair",
+    "Food & Catering":           "Food_Catering",
+    "Training & Education":      "Training_Education",
+    "Insurance":                 "Insurance",
+    "Rent & Real Estate":        "Rent_Real_Estate",
+    "Raw Materials & Inventory": "Raw_Materials_Inventory",
+    "Healthcare & Medical":      "Healthcare_Medical",
+    "Logistics & Delivery":      "Logistics_Delivery",
+    "HR & Recruitment":          "HR_Recruitment",
     "Other":                     "Other",
 }
 class ExportTool:

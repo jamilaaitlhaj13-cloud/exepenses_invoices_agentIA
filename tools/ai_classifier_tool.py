@@ -30,6 +30,14 @@ EXPENSE_CATEGORIES = [
     "Marketing & Communication",
     "Legal & Compliance",
     "Maintenance & Repair",
+    "Food & Catering",
+    "Training & Education",
+    "Insurance",
+    "Rent & Real Estate",
+    "Raw Materials & Inventory",
+    "Healthcare & Medical",
+    "Logistics & Delivery",
+    "HR & Recruitment",
     "Other",
 ]
 
@@ -91,6 +99,23 @@ Classification rules :
   cabinet juridique, audit juridique                        → "Legal & Compliance"
 - Maintenance, repair, cleaning, security, gardening,
   technical support, facility management                    → "Maintenance & Repair"
+- Restaurant, catering, cafeteria, meal, food delivery,
+  traiteur, repas d'affaires, sodexo, lunch                → "Food & Catering"
+- Training, e-learning, certification, Coursera, Udemy,
+  formation, workshop, conference registration, seminar     → "Training & Education"
+- Insurance premium, assurance, wafa assurance, AXA,
+  CNSS, AMO, mutuelle, RMA, coverage, police d'assurance   → "Insurance"
+- Rent, lease, loyer, bail, real estate, office space,
+  warehouse rental, agence immobilière, property           → "Rent & Real Estate"
+- Raw materials, matières premières, stock, inventory,
+  supplies wholesale, goods purchase, fabric, metal,
+  components, packaging                                     → "Raw Materials & Inventory"
+- Doctor, clinic, pharmacy, hospital, medical,
+  optician, dentist, pharmacie, clinique, healthcare       → "Healthcare & Medical"
+- Shipping, delivery, transport, DHL, FedEx, Amana,
+  courier, freight, logistics, colissimo, transit          → "Logistics & Delivery"
+- Recruitment, staffing, job posting, LinkedIn Talent,
+  headhunter, interim, RH, payroll services, HR            → "HR & Recruitment"
 - Everything else                                           → "Other"\
 """
 class AIClassifierTool:
